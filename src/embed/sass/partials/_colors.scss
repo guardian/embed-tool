@@ -1,0 +1,13 @@
+@mixin colouriseEmbed($vertical, $c-color) {
+    .wrapper--#{$vertical} {
+        .title {
+            color: $c-color;
+        }
+    }
+}
+
+@include colouriseEmbed('news', $c-red);
+@include colouriseEmbed('opinion', $c-orange);
+@include colouriseEmbed('sport', $c-blue);
+@include colouriseEmbed('arts', $c-brown);
+@include colouriseEmbed('lifestyle', $c-purple);

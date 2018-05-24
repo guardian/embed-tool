@@ -15,13 +15,18 @@
 </head>
 
 <body>
-    <div class="select__wrapper">
+    <div class='target'>
         <!-- this is where the template will be injected -->
     </div>
 
-    <script class="select__template" type="text/x-handlebars-template">
-        <div class='embed--{{ handlise vertical }}'>
-        <h2>{{ series }}</h2>
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper wrapper--{{ handlise vertical }}'>
+            <div class='header'>
+                <h1 class='title'>{{ series }}</h1>
+            </div>
+            <div class="content">
+                {{ copy }}
+            </div>
         </div>
     </script>
 
@@ -54,11 +59,11 @@
                 return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
             });
 
-            var source = document.getElementsByClassName('select__template')[0].innerHTML;
+            var source = document.getElementsByClassName('template')[0].innerHTML;
             var template = Handlebars.compile(source);
             var html = template(getPageParameters(document.location.href));
 
-            document.getElementsByClassName('select__wrapper')[0].innerHTML = html;
+            document.getElementsByClassName('target')[0].outerHTML = html;
         }
 
         init();
