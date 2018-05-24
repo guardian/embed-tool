@@ -224,9 +224,24 @@
 
         function bindings() {
             $('.options__input').change(function() {
-               buildDataObject();
-               buildURL(); 
+                refreshEmbed();
             });
+
+            var timer;
+
+            $('.options__input').on('keyup', function() {
+                clearTimeout(timer);
+                timer = setTimeout(refreshEmbed, 500);
+            });
+
+            $('.options__input').on('keydown', function() {
+                clearTimeout(timer);
+            });
+        }
+
+        function refreshEmbed() {
+            buildDataObject();
+            buildURL(); 
         }
 
         function init() {
