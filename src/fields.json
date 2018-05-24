@@ -1,8 +1,8 @@
-{
+[
     {
         "name": "Vertical",
         "type": "select",
-        "options": ['News', 'Opinion', 'Sport', 'Lifestyle', 'Arts']
+        "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts"]
     },
 
     {
@@ -14,4 +14,4 @@
         "name": "Copy",
         "type": "textarea"
     }
-}
+]
