@@ -1,0 +1,17 @@
+{
+    {
+        "name": "Vertical",
+        "type": "select",
+        "options": ['News', 'Opinion', 'Sport', 'Lifestyle', 'Arts']
+    },
+
+    {
+        "name": "Series",
+        "type": "text"
+    },
+
+    {
+        "name": "Copy",
+        "type": "textarea"
+    }
+}
