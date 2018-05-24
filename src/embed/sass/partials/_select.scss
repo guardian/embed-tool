@@ -1,0 +1,79 @@
+.select__wrapper {
+    position: relative;
+    border-top: 1px solid $c-grey;
+    border-bottom: 1px solid $c-grey;
+
+    &:after {
+        content: '';
+        height: 18px;
+        width: 1px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background-color: $c-grey;
+    }
+}
+
+.select__header {
+    padding: 4px 0;
+}
+
+.select__content {
+    position: relative;
+    color: $c-black;
+    font-family: 'Guardian Text Sans Web';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.3;
+    margin: 6px 0 0;
+    padding: 5px;
+    border-top: 1px solid $c-grey;
+
+    &:before {
+        content: '';
+        height: 18px;
+        width: 1px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: $c-grey;
+    }
+}
+
+.select-logo {
+    max-width: 250px;
+    margin-top: 4px;
+    display: block;
+}
+
+.select-logo__guardian,
+.select-logo__tagline {
+    fill: $c-black;
+}
+
+.select__source {
+    display: block;
+    margin-bottom: 18px;
+
+    a {
+        color: inherit;
+        border-bottom: 1px solid transparent;
+    }
+}
+
+.select__headline {
+    display: block;
+    font-size: 18px;
+
+    a {
+        color: $c-black;
+        border-bottom: 1px solid transparent;
+    }
+}
+
+.select__reason {
+    a {
+        color: $c-black;
+        border-bottom: 1px solid $c-black;
+    }
+}

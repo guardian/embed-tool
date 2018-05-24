@@ -1,0 +1,13 @@
+{
+    "local": {
+        "url": "http://localhost",
+        "port": 8080
+    },
+    "remote": {
+        "url": "https://interactive.guim.co.uk",
+        "path": "",
+        "bucket": "gdn-cdn"
+    },
+    "name": "embed-name",
+    "version": 1
+}
