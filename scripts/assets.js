@@ -4,26 +4,27 @@ var handlebars = require('handlebars');
 
 var fields = require('../src/fields.json');
 var config = require('../scripts/config.json');
+var name = config.name.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
 
 module.exports = {
     css: function(path, absolutePath, version) {
-        fs.removeSync(path + 'embed/' + config.name + '/style.css');
+        fs.removeSync(path + 'embed/' + name + '/style.css');
 
         var css = sass.renderSync({
             file: './src/embed/sass/style.scss'
         }).css.toString('utf8');
 
-        fs.mkdirsSync(path + 'embed/' + config.name + '/v' + version);
-        fs.writeFileSync(path + 'embed/' + config.name + '/v' + version + '/style.css', css.replace(/@@assetPath@@/g, absolutePath).replace(/@@version@@/g, 'v' + version));
+        fs.mkdirsSync(path + 'embed/' + name + '/v' + version);
+        fs.writeFileSync(path + 'embed/' + name + '/v' + version + '/style.css', css.replace(/@@assetPath@@/g, absolutePath).replace(/@@version@@/g, 'v' + version));
         console.log('updated css');
     },
 
     html: function(path, absolutePath, version) {
-        fs.mkdirsSync(path + 'tools/' + config.name + '');
-        fs.writeFileSync(path + 'tools/' + config.name + '/index.html', this.compileHtml('tool', absolutePath));
+        fs.mkdirsSync(path + 'tools/' + name + '');
+        fs.writeFileSync(path + 'tools/' + name + '/index.html', this.compileHtml('tool', absolutePath));
 
-        fs.mkdirsSync(path + 'embed/' + config.name + '/v' + version)
-        fs.writeFileSync(path + 'embed/' + config.name + '/v' + version + '/index.html', 
+        fs.mkdirsSync(path + 'embed/' + name + '/v' + version)
+        fs.writeFileSync(path + 'embed/' + name + '/v' + version + '/index.html', 
             fs.readFileSync('./src/embed/index.html', 'utf8')
         );
 
@@ -61,6 +62,6 @@ module.exports = {
     },
 
     copy: function(path) {
-        fs.copySync('./node_modules/handlebars/dist/handlebars.min.js', path + 'embed/' + config.name + '/v' + config.version + '/handlebars.min.js');
+        fs.copySync('./node_modules/handlebars/dist/handlebars.min.js', path + 'embed/' + name + '/v' + config.version + '/handlebars.min.js');
     }
 } 

@@ -152,7 +152,7 @@
 
         <div class='preview'>
             <h2 class='preview__label'>Preview</h2>
-            <iframe class='preview__iframe' data-url='{{ path }}/embed/{{ name }}/{{ version }}/'></iframe>
+            <iframe class='preview__iframe' data-url='{{ path }}/embed/{{ handlise name }}/{{ version }}/'></iframe>
 
             <h2 class='preview__label'>Embed Url</h2>
             <input type='text' class='preview__url'>
@@ -162,7 +162,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type='text/javascript'>
         var data = {},
-            defaultUrl = '{{ path }}/embed/{{ name }}/{{ version }}/index.html'
+            defaultUrl = '{{ path }}/embed/{{ handlise name }}/{{ version }}/index.html'
 
         function buildDataObject() {
             $('.options__input').each(function(i, el) {
