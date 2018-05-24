@@ -125,46 +125,34 @@
 
     <main>
         <div class='options'>
-            <div class='option'>
-                <h2 class='options__sub-label'>Vertical</h2>
-                <select name='colour-scheme' class='options__input options__input--team'>
-                    <option value='news'>News</option>
-                    <option value='opinion'>Opinion</option>
-                    <option value='sport'>Sport</option>
-                    <option value='lifestyle'>Lifestyle</option>
-                    <option value='arts'>Arts</option>
-                </select>
-            </div>
+            {{#each fields}}
+                <div class='option'>
+                    <h2 class='options__sub-label'>{{ name }}</h2>
 
-            <div class='option'>
-                <h2 class='options__sub-label'>Original Headline</h2>
-                <input class='options__input' type='text' value='Cool article headline that we have found' name='headline'>
-            </div>
+                    {{#switch type}}
+                        {{#case 'text'}}
+                            <input class='options__input' type='text' value='Cool article headline that we have found' name='{{ handlise name }}'>
+                        {{/case}}
 
-            <div class='option'>
-                <h2 class='options__sub-label'>Link to original</h2>
-                <input class='options__input' type='text' value='https://www.theguardian.com/film/2016/jul/13/dwayne-the-rock-johnson-worlds-highest-paid-actor-reasons-why' name='headlineLink'>
-            </div>
+                        {{#case 'textarea'}}
+                            <textarea class='options__input options__input--textarea' name='{{ handlise name }}'>We picked this article because it was a good article. This section should probably be quite short so the box doesn't get too big on mobile. Another sentence should just about do it.</textarea>
+                        {{/case}}
 
-            <div class='option'>
-                <h2 class='options__sub-label'>Original Publication</h2>
-                <input class='options__input' type='text' value='Not The Guardian' name='publine'>
-            </div>
-
-            <div class='option'>
-                <h2 class='options__sub-label'>Link to publication</h2>
-                <input class='options__input' type='text' value='https://www.theguardian.com' name='pubLink'>
-            </div>
-
-            <div class='option'>
-                <h2 class='options__sub-label'>Reason</h2>
-                <textarea class='options__input options__input--textarea' name='reason'>We picked this article because it was a good article. This section should probably be quite short so the box doesn't get too big on mobile. Another sentence should just about do it.</textarea>
-            </div>
+                        {{#case 'select'}}
+                            <select name='{{ handlise name }}' class='options__input'>
+                                {{#each options}}
+                                <option value='{{ handlise this }}'>{{ this }}</option>
+                                {{/each}}
+                            </select>
+                        {{/case}}
+                    {{/switch}}
+                </div>
+            {{/each}}
         </div>
 
         <div class='preview'>
             <h2 class='preview__label'>Preview</h2>
-            <iframe class='preview__iframe' data-url='@@assetPath@@/embed/guardian-selects/@@version@@/'></iframe>
+            <iframe class='preview__iframe' data-url='{{ path }}/embed/{{ name }}/{{ version }}/'></iframe>
 
             <h2 class='preview__label'>Embed Url</h2>
             <input type='text' class='preview__url'>
@@ -174,7 +162,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type='text/javascript'>
         var data = {},
-            defaultUrl = '@@assetPath@@/embed/guardian-selects/@@version@@/embed.html'
+            defaultUrl = '{{ path }}/embed/{{ name }}/{{ version }}/index.html'
 
         function buildDataObject() {
             $('.options__input').each(function(i, el) {
