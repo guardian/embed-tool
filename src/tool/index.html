@@ -125,18 +125,24 @@
             background-color: #f6f6f6;
         }
 
-        .preview__iframe {
-            border: 0;
-            height: 300px;
-            width: 380px;
+        .preview__wrapper {
             background-color: #fff;
             padding: 20px;
             border: 1px solid #dfdfdf;
             margin-bottom: 12px;
         }
 
+        .preview__iframe {
+            border: 0;
+            height: 300px;
+            width: 380px;
+            background-color: #fff;
+            margin: 0 auto;
+            display: block;
+        }
+
         .preview__url {
-            width: calc(100% - 60px);
+            width: calc(100% - 20px);
         }
 
         input,
@@ -191,7 +197,9 @@
 
         <div class='preview'>
             <h2 class='preview__label'>Preview</h2>
-            <iframe class='preview__iframe' data-url='{{ path }}/embed/{{ handlise name }}/{{ version }}/'></iframe>
+            <div class='preview__wrapper'>
+                <iframe class='preview__iframe' data-url='{{ path }}/embed/{{ handlise name }}/{{ version }}/'></iframe>
+            </div>
 
             <h2 class='preview__label'>Embed Url</h2>
             <input type='text' class='preview__url'>
