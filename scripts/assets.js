@@ -23,8 +23,8 @@ module.exports = {
         fs.writeFileSync(path + 'tools/' + config.name + '/index.html', this.compileHtml('tool', absolutePath));
 
         fs.mkdirsSync(path + 'embed/' + config.name + '/v' + version)
-        fs.writeFileSync(path + 'embed/' + config.name + '/v' + version + '/index.html',
-            fs.readFileSync('./src/embed/index.html', 'utf8').replace(/@@assetPath@@/g, absolutePath).replace(/@@version@@/g, 'v' + version)
+        fs.writeFileSync(path + 'embed/' + config.name + '/v' + version + '/index.html', 
+            fs.readFileSync('./src/embed/index.html', 'utf8')
         );
 
         console.log('updated html!');
@@ -46,7 +46,7 @@ module.exports = {
 
         handlebars.registerHelper('handlise', function(string) {
             return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
-        })
+        });
 
         var html = fs.readFileSync('src/' + file + '/index.html', 'utf8');
         var template = handlebars.compile(html);
@@ -58,5 +58,9 @@ module.exports = {
         };
 
         return template(data);
+    },
+
+    copy: function(path) {
+        fs.copySync('./node_modules/handlebars/dist/handlebars.min.js', path + 'embed/' + config.name + '/v' + config.version + '/handlebars.min.js');
     }
 } 

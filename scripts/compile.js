@@ -44,6 +44,7 @@ fs.emptyDirSync(path);
 
 assets.css(path, assetPath, version);
 assets.html(path, assetPath, version);
+assets.copy(path);
 
 if (specs.deploy) {
     fs.emptyDirSync('.deploy');
