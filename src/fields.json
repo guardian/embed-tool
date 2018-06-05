@@ -7,11 +7,13 @@
 
     {
         "name": "Series",
-        "type": "text"
+        "type": "text",
+        "default": "Replace me with an example"
     },
 
     {
         "name": "Copy",
-        "type": "textarea"
+        "type": "textarea",
+        "default": "Replace me with an example"
     }
 ]

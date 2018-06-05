@@ -176,11 +176,11 @@
 
                     {{#switch type}}
                         {{#case 'text'}}
-                            <input class='options__input' type='text' value='Cool article headline that we have found' name='{{ handlise name }}'>
+                            <input class='options__input' type='text' value='{{ default }}' name='{{ handlise name }}'>
                         {{/case}}
 
                         {{#case 'textarea'}}
-                            <textarea class='options__input options__input--textarea' name='{{ handlise name }}'>We picked this article because it was a good article. This section should probably be quite short so the box doesn't get too big on mobile. Another sentence should just about do it.</textarea>
+                            <textarea class='options__input options__input--textarea' name='{{ handlise name }}'>{{ default }}</textarea>
                         {{/case}}
 
                         {{#case 'select'}}
