@@ -77,6 +77,7 @@ module.exports = function deploy() {
             if ( !inFlight ) {
                 loader.stop();
                 console.log( '\nupload complete! type ' + chalk.cyan( 'npm run open' ) + ' to view the project' );
+                console.log('\nView the tool at https://interactive.guim.co.uk/tools/' + config.name.replace(' ', '-').toLowerCase());
             }
 
             return;
