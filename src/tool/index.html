@@ -99,14 +99,14 @@
     </style>
 
     <header>
-        <a class='header__link' href='{{ path }}'>Embed Tool</a>
+        <a target='_self' class='header__link' href='{{ path }}'>Embed Tool</a>
         <h1 class='header__title'>Create an embed</h1>
     </header>
 
     <main>
         <div class='embed-menu'>
             {{#each embeds}}
-                <a class='embed-menu__option' href='{{ path }}/tools/embed-tool/{{ handliseFileName @this }}/index.html'>
+                <a target='_self' class='embed-menu__option' href='{{ path }}/tools/embed-tool/{{ handliseFileName @this }}/index.html'>
                     {{ @this }}
                 </a>
             {{/each}}
