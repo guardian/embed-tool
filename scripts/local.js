@@ -26,7 +26,7 @@ var file = new static.Server('./.build', {
     }
 });
 
-console.log('Serving the tool at http://localhost:' + config.local.port + '/tools/' + config.name.toLowerCase().replace(/ /g, '-').replace(/\//g, ''));
+// console log the local path here
 
 require('http').createServer(function (request, response) {
     request.addListener('end', function () {

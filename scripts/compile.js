@@ -8,43 +8,20 @@ var config = require('../scripts/config.json');
 var assets = require('../scripts/assets.js');
 
 var specs =  {
-    'deploy': process.argv.slice(2)[0] == 'true' ? true : false,
-    'isNewVersion': process.argv.slice(2)[1] == 'true' ? true : false
+    'deploy': process.argv.slice(2)[0] == 'true' ? true : false
 };
 
 var path = '.build/';
-var version = config.version;
-var assetPath = specs.deploy === false ? 'http://localhost:' + config.local.port : config.remote.url;
-
-var questionAnswered = false;
-
-if (specs.isNewVersion) {
-    var newConfig = JSON.parse(JSON.stringify(config));
-        newConfig.version += 1;
-
-    var confirmed = false;
-
-    promptly.confirm('Increase version from ' + config.version + ' to ' + newConfig.version + '?', function(err, value) {
-        confirmed = value;
-
-        if (confirmed) {
-            version = newConfig.version;
-            fs.writeFileSync('./scripts/config.json', JSON.stringify(newConfig, null, 4));
-            questionAnswered = true;
-        } else {
-            console.log('Compile aborted');
-            process.exit();
-        }
-    })
-
-    deasync.loopWhile(function(){return !questionAnswered;});
+var data = {
+    path: specs.deploy === false ? 'http://localhost:' + config.local.port : config.remote.url,
+    embeds: fs.readdirSync('./src/embeds')
 }
 
 fs.emptyDirSync(path);
+fs.mkdirsSync(path);
 
-assets.css(path, assetPath, version);
-assets.html(path, assetPath, version);
-assets.copy(path);
+assets.html(fs.readFileSync('./src/tool/index.html', 'utf8'), data, 'tools/embed-tool/index.html');
+
 
 if (specs.deploy) {
     fs.emptyDirSync('.deploy');
