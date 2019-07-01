@@ -42,9 +42,5 @@ module.exports = {
 
         fs.mkdirsSync('.build/' + exportPath.substring(0, exportPath.lastIndexOf("/")));
         fs.writeFileSync('.build/' + exportPath, template(data));
-    },
-
-    copy: function(path) {
-        // fs.copySync('./node_modules/handlebars/dist/handlebars.min.js', path + 'embed/' + name + '/v' + config.version + '/handlebars.min.js');
     }
 }
