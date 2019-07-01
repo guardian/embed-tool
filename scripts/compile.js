@@ -1,7 +1,7 @@
 // dependancies
 var fs = require('fs-extra');
-var promptly = require('promptly');
 var deasync = require('deasync');
+var JSDom = require('jsdom').JSDOM;
 
 var deploy = require('./deploy.js');
 var config = require('../scripts/config.json');
@@ -14,14 +14,40 @@ var specs =  {
 var path = '.build/';
 var data = {
     path: specs.deploy === false ? 'http://localhost:' + config.local.port : config.remote.url,
-    embeds: fs.readdirSync('./src/embeds')
+    embeds: {}
 }
 
 fs.emptyDirSync(path);
 fs.mkdirsSync(path);
 
-assets.html(fs.readFileSync('./src/tool/index.html', 'utf8'), data, 'tools/embed-tool/index.html');
+fs.readdirSync('./src/embeds/').forEach(function(embed) {
+    var dom = new JSDom(fs.readFileSync('./src/embeds/' + embed,'utf8'));
+    var document = dom.window.document;
+    var embedName = embed.split('.')[0];
 
+    // compile sass
+    var sass = document.querySelector('script[type=\'application/sass\']');
+    var css = assets.css(sass.innerHTML);
+    var style = document.createElement('style')
+        style.innerHTML = css;
+    document.head.appendChild(style);
+    sass.parentNode.removeChild(sass);
+
+    // get fields from inline JSON
+    var json = document.querySelector('script[type=\'application/json\']');
+    var fields = JSON.parse(json.innerHTML);
+    json.parentNode.removeChild(json);
+
+    // write embed
+    console.log( 'embeds/test/' + embed + '/index.html');
+    assets.html(dom.serialize(), fields, 'embeds/test/' + embedName + '/index.html');
+    // data.embeds[embedName] = {
+    //     html: dom.serialize(),
+    //     fields: fields
+    // }
+});
+
+assets.html(fs.readFileSync('./src/tool/index.html', 'utf8'), data, 'tools/embed-tool/index.html');
 
 if (specs.deploy) {
     fs.emptyDirSync('.deploy');

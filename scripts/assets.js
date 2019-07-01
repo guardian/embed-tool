@@ -3,21 +3,19 @@ var sass = require('node-sass');
 var handlebars = require('handlebars');
 
 module.exports = {
-    css: function(path, absolutePath, version) {
-        fs.removeSync(path + 'embed/' + name + '/style.css');
-
+    css: function(importedSass) {
         var css = sass.renderSync({
-            file: './src/embed/sass/style.scss'
+            data: importedSass
         }).css.toString('utf8');
 
-        fs.mkdirsSync(path + 'embed/' + name + '/v' + version);
-        fs.writeFileSync(path + 'embed/' + name + '/v' + version + '/style.css', css.replace(/@@assetPath@@/g, absolutePath).replace(/@@version@@/g, 'v' + version));
-        console.log('updated css');
+        return css;
     },
 
     html: function(html, data, exportPath) {
         handlebars.registerHelper('handlise', function(string) {
-            return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+            if (string) {
+                return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+            }
         });
 
         handlebars.registerHelper("switch", function(value, options) {
@@ -34,8 +32,6 @@ module.exports = {
         });
 
         var template = handlebars.compile(html);
-
-        console.log(exportPath);
 
         fs.mkdirsSync('.build/' + exportPath.substring(0, exportPath.lastIndexOf("/")));
         fs.writeFileSync('.build/' + exportPath, template(data));
