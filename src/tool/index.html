@@ -106,8 +106,8 @@
     <main>
         <div class='embed-menu'>
             {{#each embeds}}
-                <a class='embed-menu__option' href='{{ path }}/tools/embed-tool/{{ handlise @key }}'>
-                    {{ @key }}
+                <a class='embed-menu__option' href='{{ path }}/tools/embed-tool/{{ handliseFileName @this }}/index.html'>
+                    {{ @this }}
                 </a>
             {{/each}}
         </div>

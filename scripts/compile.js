@@ -14,14 +14,14 @@ var specs =  {
 var path = '.build/';
 var data = {
     path: specs.deploy === false ? 'http://localhost:' + config.local.port : config.remote.url,
-    embeds: {}
+    embeds: fs.readdirSync('./src/embeds/')
 }
 
 fs.emptyDirSync(path);
 fs.mkdirsSync(path);
 
-fs.readdirSync('./src/embeds/').forEach(function(embed) {
-    var dom = new JSDom(fs.readFileSync('./src/embeds/' + embed,'utf8'));
+data.embeds.forEach(function(embed) {
+    var dom = new JSDom(fs.readFileSync('./src/embeds/' + embed, 'utf8'));
     var document = dom.window.document;
     var embedName = embed.split('.')[0];
 
@@ -39,12 +39,12 @@ fs.readdirSync('./src/embeds/').forEach(function(embed) {
     json.parentNode.removeChild(json);
 
     // write embed
-    console.log( 'embeds/test/' + embed + '/index.html');
-    assets.html(dom.serialize(), fields, 'embeds/test/' + embedName + '/index.html');
-    // data.embeds[embedName] = {
-    //     html: dom.serialize(),
-    //     fields: fields
-    // }
+    var embedDest = path + 'embeds/test/' + embedName;
+    fs.mkdirsSync(embedDest);
+    fs.writeFileSync(embedDest + '/index.html', dom.serialize());
+
+    // create tool page
+    assets.html(fs.readFileSync('./src/tool/embed.html', 'utf8'), data, 'tools/embed-tool/' + embedName + '/index.html');
 });
 
 assets.html(fs.readFileSync('./src/tool/index.html', 'utf8'), data, 'tools/embed-tool/index.html');
