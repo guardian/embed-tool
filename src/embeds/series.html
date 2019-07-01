@@ -67,6 +67,28 @@
             padding: 5px 0;
             border-top: 1px solid $c-light-grey;
         }
+
+        @mixin colouriseEmbed($vertical, $c-color) {
+            .wrapper--#{$vertical} {
+                .title {
+                    color: $c-color;
+                }
+
+                .button {
+                    background-color: $c-color;
+
+                    &:hover {
+                        background-color: darken($c-color, 5%);
+                    }
+                }
+            }
+        }
+
+        @include colouriseEmbed('news', $c-red);
+        @include colouriseEmbed('opinion', $c-orange);
+        @include colouriseEmbed('sport', $c-blue);
+        @include colouriseEmbed('arts', $c-brown);
+        @include colouriseEmbed('lifestyle', $c-purple);
     </script>
 </head>
 
