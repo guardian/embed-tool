@@ -35,7 +35,7 @@
     "node-static": "^0.7.9",
     "node-watch": "^0.4.1",
     "path": "^0.12.7",
-    "sass-mq": "^3.2.9",
+    "sass-mq": "^3.3.2",
     "stevedore": "^0.1.4"
   }
 }
