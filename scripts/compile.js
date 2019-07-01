@@ -39,12 +39,16 @@ data.embeds.forEach(function(embed) {
     json.parentNode.removeChild(json);
 
     // write embed
-    var embedDest = path + 'embeds/test/' + embedName;
+    var embedDest = path + 'embed/' + embedName;
     fs.mkdirsSync(embedDest);
     fs.writeFileSync(embedDest + '/index.html', dom.serialize());
 
     // create tool page
-    assets.html(fs.readFileSync('./src/tool/embed.html', 'utf8'), data, 'tools/embed-tool/' + embedName + '/index.html');
+    assets.html(fs.readFileSync('./src/tool/embed.html', 'utf8'), {
+        name: embedName,
+        fields: fields,
+        path: data.path
+    }, 'tools/embed-tool/' + embedName + '/index.html');
 });
 
 assets.html(fs.readFileSync('./src/tool/index.html', 'utf8'), data, 'tools/embed-tool/index.html');

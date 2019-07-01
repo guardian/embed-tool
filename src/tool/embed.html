@@ -44,16 +44,40 @@
         }
 
         header {
-            background-color: #e9eff1;
+            position: relative;
+            background-color: white;
             border-bottom: 1px solid #dfdfdf;
-            padding: 6px 10px;
         }
 
-        h1 {
-            font-size: 32px;
+        .header__link {
+            position: relative;
+            z-index: 2;
+            font-size: 24px;
             line-height: 1.2;
+            padding: 12px 20px;
             color: #121212;
             margin: 0;
+            display: inline-block;
+            background-color: #ffe500;
+            border-right: 1px solid #dfdfdf;
+            text-decoration: none;
+        }
+
+        .header__link:hover {
+            background-color: #ffbb50;
+        }
+
+        .header__title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            text-align: center;
+            font-size: 24px;
+            line-height: 1.2;
+            padding: 12px 0;
         }
 
         main {
@@ -164,7 +188,8 @@
     </style>
 
     <header>
-        <h1>{{ name }} Embed Tool</h1>
+        <a class='header__link' href='{{ path }}/tools/embed-tool/'>Embed Tool</a>
+        <h1 class='header__title'>Making {{ name }}</h1>
     </header>
 
     <main>
@@ -198,7 +223,7 @@
         <div class='preview'>
             <h2 class='preview__label'>Preview</h2>
             <div class='preview__wrapper'>
-                <iframe class='preview__iframe' data-url='{{ path }}/embed/{{ handlise name }}/{{ version }}/'></iframe>
+                <iframe class='preview__iframe' data-url='{{ path }}/embed/{{ handlise name }}/index.html'></iframe>
             </div>
 
             <h2 class='preview__label'>Embed Url</h2>
@@ -209,7 +234,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type='text/javascript'>
         var data = {},
-            defaultUrl = '{{ path }}/embed/{{ handlise name }}/{{ version }}/index.html'
+            defaultUrl = '{{ path }}/embed/{{ handlise name }}/index.html'
 
         function buildDataObject() {
             $('.options__input').each(function(i, el) {
