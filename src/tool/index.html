@@ -92,9 +92,23 @@
         }
 
         .embed-menu__option {
+            height: 0;
+            position: relative;
             background-color: #fff;
             color: #121212;
             padding-top: 100%;
+            cursor: pointer;
+        }
+
+        .embed-menu__option:hover {
+            background-color: #ddd;
+        }
+
+        .embed-menu__option-title {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            margin: 0;
         }
     </style>
 
@@ -107,7 +121,7 @@
         <div class='embed-menu'>
             {{#each embeds}}
                 <a target='_self' class='embed-menu__option' href='{{ path }}/tools/embed-tool/{{ handliseFileName @this }}/index.html'>
-                    {{ @this }}
+                    <h2 class='embed-menu__option-title'>{{ fileToTitle @this }}</h2>
                 </a>
             {{/each}}
         </div>

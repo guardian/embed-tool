@@ -24,6 +24,12 @@ module.exports = {
             }
         });
 
+        handlebars.registerHelper('fileToTitle', function(string) {
+            if (string) {
+                string = string.toLowerCase().replace(/ /g, '-').replace(/\//g, '').replace('.html', '');
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
+        });
 
         handlebars.registerHelper("switch", function(value, options) {
             this._switch_value_ = value;
