@@ -222,6 +222,10 @@
                     color: $c-color;
                 }
 
+                .title:hover {
+                    color: darken($c-color, 5%);
+                }
+
                 .link:hover:after {
                     background-color: $c-color;
                     border-color: $c-color;
@@ -254,7 +258,7 @@
     <script class="template" type="text/x-handlebars-template">
         <div class='wrapper wrapper--{{ handlise vertical }} {{#if opinion-tint}}wrapper--tint{{/if}}'>
             <div class='header'>
-                <h1 class='title'>{{ title }} {{ opinion-tint }}</h1>
+                <a class='title' href='{{ read-more-link }}'>{{ title }}</a>
             </div>
             <div class="content">
                 {{ description }}
