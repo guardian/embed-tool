@@ -18,13 +18,25 @@
         }
 
         @font-face {
-            font-family: 'Guardian Sans Web';
-            src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Sans Web-Regular.eot');
-            src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Sans Web-Regular.eot?#iefix') format('embedded-opentype'),
-                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Sans Web-Regular.woff') format('woff'),
-                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Sans Web-Regular.ttf') format('truetype'),
-                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Sans Web-Regular.svg#Guardian Sans Web-Regular') format('svg');
+            font-family: 'Guardian Agate Sans';
+            src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Reg.eot');
+            src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Reg.eot?#iefix') format('embedded-opentype'),
+                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Reg.woff') format('woff'),
+                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Reg.ttf') format('truetype'),
+                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Reg.svg#Guardian Sans Web-Regular') format('svg');
             font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+        }
+
+        @font-face {
+            font-family: 'Guardian Agate Sans';
+            src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Bold.eot');
+            src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Bold.eot?#iefix') format('embedded-opentype'),
+                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Bold.woff') format('woff'),
+                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Bold.ttf') format('truetype'),
+                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Bold.svg#Guardian Sans Web-Regular') format('svg');
+            font-weight: bold;
             font-style: normal;
             font-stretch: normal;
         }
@@ -63,6 +75,24 @@
 
         .header__link:hover {
             background-color: #ffbb50;
+        }
+
+        .header__link--right {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: #ffffff;
+            font-family: 'Guardian Agate Sans';
+            font-size: 13px;
+            font-weight: normal;
+            border-left: 1px solid #dfdfdf;
+            padding: 18px 20px;
+            cursor: pointer;
+        }
+
+        .header__link--right:hover {
+            background-color: #ddd;
         }
 
         .header__title {
@@ -115,6 +145,9 @@
     <header>
         <a target='_self' class='header__link' href='{{ path }}'>Embed Tool</a>
         <h1 class='header__title'>Create an embed</h1>
+        <div class='header__link header__link--right'>
+            Restore old embed
+        </div>
     </header>
 
     <main>
@@ -126,4 +159,19 @@
             {{/each}}
         </div>
     </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function bindings() {
+            $('.header__link--right').click(function() {
+                var url = prompt('Enter embed URL', '');
+
+                // check if it's a Url
+                // replace parts of the url to turn the embed url into a link to that specific tools
+                // redirect window to that new url
+            });
+        }
+
+        bindings();
+    </script>
 </body>
