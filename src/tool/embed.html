@@ -237,20 +237,53 @@
             padding: 8px 20px;
         }
 
-        .export__label {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 20px;
+        .export__inner {
+            display: flex;
+            justify-content: center;
+        }
+
+        .export__button {
+            position: relative;
+            overflow: hidden;
+            background-color: #ffe500;
+            color: #121212;
+            padding: 12px;
+            display: inline-block;
             font-size: 13px;
             line-height: 1.1;
             font-family: 'Guardian Agate Sans';
             font-weight: bold;
+            cursor: pointer;
+        }
+
+        .export__button-copied {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: #212121;
+            color: #ffe500;
+            transition: transform 0.1s linear;
+            transform: translateY(100%);
+        }
+
+        .export__button.is-copied .export__button-copied {
+            transform: translateY(0);
+        }
+
+        .export__button:hover {
+            background-color: #ffbb50;
         }
 
         .export__url {
-            width: calc(50% - 40px);
-            margin: 0 auto;
+            width: 50%;
+            margin-right: 10px;
             display: block;
             border: 1px solid #ccc;
         }
@@ -259,7 +292,7 @@
 
     <header>
         <a target='_self' class='header__link' href='{{ path }}/tools/embed-tool/'>Embed Tool</a>
-        <h1 class='header__title'>Making {{ name }}</h1>
+        <h1 class='header__title'>Make your {{ name }} embed</h1>
     </header>
 
     <main>
@@ -303,8 +336,13 @@
     </main>
 
     <div class='export'>
-        <h2 class='export__label'>Embed Url</h2>
-        <input type='text' class='export__url'>
+        <div class='export__inner'>
+            <input type='text' class='export__url'>
+            <div class='export__button'>
+                <div class='export__button-copied'>Copied!</div>
+                Copy Embed Url
+            </div>
+        </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -353,6 +391,20 @@
 
             $('.options__input').on('keydown', function() {
                 clearTimeout(timer);
+            });
+
+            var buttonTimer;
+
+            $('.export__button').click(function() {
+                var url = document.getElementsByClassName('export__url')[0];
+                    url.select();
+                    document.execCommand('copy');
+
+                clearTimeout(buttonTimer);
+                $('.export__button').addClass('is-copied');
+                buttonTimer = setTimeout(function() {
+                    $('.export__button').removeClass('is-copied');
+                }, 2000);
             });
         }
 
