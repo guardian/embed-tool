@@ -26,7 +26,7 @@ var file = new static.Server('./.build', {
     }
 });
 
-// console log the local path here
+console.log('Local preview is available at http://localhost:8080/tools/embed-tool/')
 
 require('http').createServer(function (request, response) {
     request.addListener('end', function () {
