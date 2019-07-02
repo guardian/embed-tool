@@ -31,11 +31,11 @@
 
         @font-face {
             font-family: 'Guardian Agate Sans';
-            src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Regular.eot');
-            src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Regular.eot?#iefix') format('embedded-opentype'),
-                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Regular.woff') format('woff'),
-                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Regular.ttf') format('truetype'),
-                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Regular.svg#Guardian Sans Web-Regular') format('svg');
+            src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Reg.eot');
+            src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Reg.eot?#iefix') format('embedded-opentype'),
+                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Reg.woff') format('woff'),
+                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Reg.ttf') format('truetype'),
+                 url('https://interactive.guim.co.uk/fonts/latin1/Guardian Ag Sans 1 Web-Reg.svg#Guardian Sans Web-Regular') format('svg');
             font-weight: normal;
             font-style: normal;
             font-stretch: normal;
@@ -135,16 +135,30 @@
         }
 
         .option {
+            position: relative;
             padding: 12px 0;
         }
 
-        .options__sub-label {
+        .options__label {
             font-size: 13px;
             line-height: 1.1;
             font-family: 'Guardian Agate Sans';
             font-weight: bold;
             color: #121212;
             margin: 0px 12px 8px 0;
+        }
+
+        .options__tip {
+            width: 50%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            text-align: right;
+            font-family: 'Guardian Agate Sans';
+            font-size: 13px;
+            font-weight: normal;
+            line-height: 1.1;
+            color: #676767;
         }
 
         .options__input {
@@ -252,7 +266,11 @@
         <div class='options'>
             {{#each fields}}
                 <div class='option'>
-                    <h2 class='options__sub-label'>{{ name }}</h2>
+                    <h2 class='options__label'>{{ name }}</h2>
+
+                    {{#if tip}}
+                        <h3 class='options__tip'>{{ tip }}</h3>
+                    {{/if}}
 
                     {{#switch type}}
                         {{#case 'text'}}
