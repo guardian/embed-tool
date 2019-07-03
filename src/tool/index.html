@@ -165,6 +165,61 @@
         .old-embeds__link {
             border-bottom: 1px solid #121212;
         }
+
+        .old-embeds__item {
+            position: relative;
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 2px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .old-embeds__item-title {
+            font-family: 'Guardian Egyptian Web';
+            margin: 4px 0;
+            font-size: 16px;
+            line-height: 1.1;
+        }
+
+        .old-embeds__item-type,
+        .old-embeds__item-date {
+            font-family: 'Guardian Agate Sans';
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.1;
+            color: #222;
+        }
+
+        .old-embeds__item-date {
+            color: #666;
+            font-weight: normal;
+        }
+
+        .old-embeds__buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .old-embeds__button {
+            position: relative;
+            overflow: hidden;
+            background-color: #ffe500;
+            color: #121212;
+            padding: 12px;
+            display: inline-block;
+            font-size: 13px;
+            line-height: 1.1;
+            font-family: 'Guardian Agate Sans';
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            margin-left: 4px;
+        }
+
+        .old-embeds__button:hover {
+            background-color: #ffbb50;
+        }
     </style>
 
     <header>
@@ -186,6 +241,8 @@
         <div class='old-embeds'>
             <h2 class='old-embeds__title'>Restore old embeds</h2>
             <p class='old-embeds__empty-state'>No locally created embeds found. You can <span class='old-embeds__link js-restore'>Restore from Url</span>.</p>
+            <div class='old-embeds__list'>
+            </div>
         </div>
     </main>
 
@@ -204,6 +261,29 @@
             });
         }
 
+        function listOldEmbeds() {
+            var data = JSON.parse(localStorage.getItem('embedSettings'));
+            if (data) {
+                data.reverse();
+                data.forEach(function(d) {
+                    $('.old-embeds__list').append(`<div class='old-embeds__item'>
+                        <div class='old-embeds__content'>
+                            <h3 class='old-embeds__item-type'>${d.type}</h3>
+                            <h2 class='old-embeds__item-title'>${d.title}</h2>
+                            <h3 class='old-embeds__item-date'>${d.date}</h3>
+                        </div>
+                        <div class='old-embeds__buttons'>
+                            <a class='old-embeds__button' href='${d.url}'>Embed</a>
+                            <a target='_self' class='old-embeds__button' href='${d.url.replace('embed/from-tool', 'tools/embed-tool')}'>Restore</a>
+                        </div>
+                    </div>`)
+                });
+            } else {
+                $('.old-embeds').addClass('is-empty');
+            }
+        }
+
+        listOldEmbeds();
         bindings();
     </script>
 </body>
