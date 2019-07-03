@@ -175,6 +175,64 @@
 
         .options__input--checkbox {
             margin: 0;
+            display: none;
+        }
+
+        .options__checkbox {
+            font-family: 'Guardian Agate Sans';
+            font-size: 13px;
+            padding: 12px 0;
+            color: #fff;
+            width: 60px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .options__checkbox.is-off {
+            background-color: #888;
+        }
+
+        .options__checkbox.is-off:hover {
+            background-color: #666;
+        }
+
+        .options__checkbox.is-on {
+            background-color: #47af37;
+        }
+
+        .options__checkbox.is-on:hover {
+            background-color: #3a902d;
+        }
+
+        .options__checkbox.is-off .options__checkbox-switch--off,
+        .options__checkbox.is-on .options__checkbox-switch--on {
+            display: inline-block;
+        }
+
+        .options__checkbox-switch {
+            display: none;
+        }
+
+        .options__checkbox-switch--off:before {
+            content: '';
+            background: #fff;
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+            border-radius: 4px;
+            margin-right: 6px;
+            margin-bottom: -2px;
+        }
+
+        .options__checkbox-switch--on:after {
+            content: '';
+            background: #fff;
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+            border-radius: 4px;
+            margin-left: 6px;
+            margin-bottom: -2px;
         }
 
         .hidden {
@@ -314,6 +372,10 @@
                         {{/case}}
 
                         {{#case 'checkbox'}}
+                            <div class='options__checkbox is-off' data-name='{{ handlise name }}'>
+                                <span class='options__checkbox-switch options__checkbox-switch--off'>Off</span>
+                                <span class='options__checkbox-switch options__checkbox-switch--on'>On</span>
+                            </div>
                             <input class='options__input options__input--checkbox' type='checkbox' name='{{ handlise name }}'>
                         {{/case}}
 
@@ -432,6 +494,18 @@
             $('.options__input').change(function() {
                 refreshEmbed();
             });
+
+            $('.options__checkbox').click(function() {
+                if ($(this).hasClass('is-off')) {
+                    $(this).removeClass('is-off').addClass('is-on');
+                    $('[name=' + $(this).data('name') + ']').prop('checked', true);
+                } else {
+                    $(this).removeClass('is-on').addClass('is-off');
+                    console.log($('[name=' + $(this).data('name') + ']'));
+                    $('[name=' + $(this).data('name') + ']').prop('checked', false);
+                }
+                refreshEmbed();
+            })
 
             var timer;
 
