@@ -186,6 +186,9 @@
             width: 60px;
             text-align: center;
             cursor: pointer;
+            display: block;
+            margin-left: 120px;
+            margin-top: -22px;
         }
 
         .options__checkbox.is-off {
@@ -455,6 +458,9 @@
                     if ($input.length > 0) {
                         if ($input.attr('type') == 'checkbox') {
                             $input.prop('checked', values[value]);
+                            if (values[value]) {
+                                $input.parent().find('.options__checkbox').removeClass('is-off').addClass('is-on');
+                            }
                         } else {
                             $input.val(values[value]);
                         }
