@@ -334,7 +334,7 @@
         </div>
 
         <div class='preview'>
-            <iframe class='preview__iframe' data-url='{{ path }}/embed/{{ handlise name }}/index.html'></iframe>
+            <iframe class='preview__iframe'></iframe>
         </div>
     </main>
 
@@ -351,7 +351,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type='text/javascript'>
         var data = {},
-            defaultUrl = '{{ path }}/embed/{{ handlise name }}/index.html'
+            defaultUrl = '{{ path }}/embed/from-tool/{{ handlise name }}/index.html'
 
         function getPageParameters() {
             var query = window.document.location.search.replace('?', '');
@@ -387,12 +387,12 @@
             var values = getPageParameters();
             if (values) {
                 var valueNames = Object.keys(values);
-                console.log(valueNames);
+
                 valueNames.forEach(function(value) {
                     var $input = $(`[name='${value}']`);
                     if ($input.length > 0) {
                         if ($input.attr('type') == 'checkbox') {
-                            $input.prop('checked', values[value]); 
+                            $input.prop('checked', values[value]);
                         } else {
                             $input.val(values[value]);
                         }

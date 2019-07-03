@@ -39,7 +39,7 @@ data.embeds.forEach(function(embed) {
     json.parentNode.removeChild(json);
 
     // write embed
-    var embedDest = path + 'embed/' + embedName;
+    var embedDest = path + 'embed/from-tool/' + embedName;
     fs.mkdirsSync(embedDest);
     fs.writeFileSync(embedDest + '/index.html', dom.serialize());
 
