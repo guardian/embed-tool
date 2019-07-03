@@ -416,7 +416,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type='text/javascript'>
         var data = {},
-            defaultUrl = '{{ path }}/embed/from-tool/{{ handlise name }}/index.html'
+            defaultUrl = '{{ path }}/embed/from-tool/{{ handlise name }}/index.html',
+            storageSlot;
 
         function getPageParameters() {
             var query = window.document.location.search.replace('?', '');
@@ -536,7 +537,33 @@
                 buttonTimer = setTimeout(function() {
                     $('.export__button').removeClass('is-copied');
                 }, 2000);
+                pushToLocalStorage();
             });
+        }
+
+        function pushToLocalStorage(url) {
+            var data = localStorage.getItem('embedSettings');
+
+            if (data === null) {
+                data = [];
+            } else {
+                data = JSON.parse(data);
+            }
+
+            if (!storageSlot) {
+                storageSlot = data.length;
+            } else {
+                data.pop();
+            }
+
+            data.push({
+                url: $('.export__url').val(),
+                type: '{{ fileToTitle name }}',
+                date: new Date(),
+                title: $('[name=\'title\']').val()
+            });
+
+            localStorage.setItem('embedSettings', JSON.stringify(data));
         }
 
         function refreshEmbed() {

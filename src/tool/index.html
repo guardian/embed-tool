@@ -140,12 +140,37 @@
             left: 12px;
             margin: 0;
         }
+
+        .old-embeds {
+            border-top: 1px solid #fff;
+            padding-top: 12px;
+            margin-top: 48px;
+        }
+
+        .old-embeds__title {
+            margin: 0;
+        }
+
+        .old-embeds__empty-state {
+            font-family: 'Guardian Agate Sans';
+            font-size: 13px;
+            font-weight: normal;
+            display: none;
+        }
+
+        .is-empty .old-embeds__empty-state {
+            display: block;
+        }
+
+        .old-embeds__link {
+            border-bottom: 1px solid #121212;
+        }
     </style>
 
     <header>
         <a target='_self' class='header__link' href='{{ path }}'>Embed Tool</a>
         <h1 class='header__title'>Create an embed</h1>
-        <div class='header__link header__link--right'>
+        <div class='header__link header__link--right js-restore'>
             Restore old embed
         </div>
     </header>
@@ -158,12 +183,16 @@
                 </a>
             {{/each}}
         </div>
+        <div class='old-embeds'>
+            <h2 class='old-embeds__title'>Restore old embeds</h2>
+            <p class='old-embeds__empty-state'>No locally created embeds found. You can <span class='old-embeds__link js-restore'>Restore from Url</span>.</p>
+        </div>
     </main>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         function bindings() {
-            $('.header__link--right').click(function() {
+            $('.js-restore').click(function() {
                 var url = prompt('Enter embed URL', '');
 
                 if (url.includes('/embed/from-tool')) {

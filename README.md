@@ -1,6 +1,6 @@
-# Embed Template
+# Embed Tool
 
-A template for create editable embeds
+A tool that allows people across the newsroom to generate embeds.
 
 ## Requirements
 * [Node](https://nodejs.org/en/download/)
@@ -8,11 +8,11 @@ A template for create editable embeds
 ## Development
 Clone this repo locally and run `npm i` to install dependancies.
 
-Once that's done you can run `npm run local` to run the project locally. The tool will be previewable on [localhost url](http://localhost:8080/tools/nfl-graphics/).
+Once that's done you can run `npm run local` to run the project locally. The tool will be previewable on [localhost url](http://localhost:8080/tools/embed-tool/).
 
-The `src` folder is where all the magic happens. Inside here you'll find an `embed` folder which includes sass and html for the embed itself. You'll also find a `tool` folder which contains a single html file for the tool.
-
-The form for the embed is generated from `fields.json`. The types of field are `select`, `text` or `textarea`. You can create as many as needed. The embed it's self then injects these fields with Handlebars.
+The `src` folder is where all the magic happens. Inside here you'll find the `embeds` folder which includes a file per embed. This file serves as the html and sass that will be served along with the data structure. That data structure will generate the individual page for that embed type in the tool. The types of field are `select`, `text` or `textarea`.
 
 ## Deploy
-To deploy you can run `npm run deploy` this will deploy to the Interactives S3 bucket. If you have made significant changes you can run `npm run deploy -- true` which will increase the version number and upload a unique version of the embed. This ensures you don't break any existing embeds. Note: You'll need AWS/Janus keys for the S3 Interactive to successfully deploy.
+To deploy you can run `npm run deploy` this will deploy both the tool and embeds
+
+<!-- If you have made significant changes you can run `npm run deploy -- true` which will increase the version number and upload a unique version of the embed. This ensures you don't break any existing embeds. Note: You'll need AWS/Janus keys for the S3 Interactive to successfully deploy. -->
