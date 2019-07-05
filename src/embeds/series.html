@@ -33,14 +33,14 @@
             {
                 "name": "Description",
                 "type": "textarea",
-                "default": "I am the description of the series. This should be short and not be too long. Otherwise people just won't read it.",
-                "tip": "Keep this short and think about mobile"
+                "default": "I am the description of the series. This should be short and not be too long. Otherwise people just won't read it."
             },
 
             {
                 "name": "Link 1 Headline",
                 "type": "text",
-                "default": "Headline for a story goes here"
+                "default": "Headline for a story goes here",
+                "tip": "Remove this and the link to remove links entirely"
             },
 
             {
@@ -76,7 +76,8 @@
             {
                 "name": "Read More Link",
                 "type": "text",
-                "default": "https://www.theguardian.com/"
+                "default": "https://www.theguardian.com/",
+                "tip": "Should link to the series front/tag"
             }
         ]
     </script>
@@ -271,19 +272,19 @@
                 {{ description }}
             </div>
             {{#if link-1-url}}
-            <ul class='links {{#if link-4-url}}links--4{{/if}}'>
-                {{#if link-1-url}}
-                <a target='_parent' href='{{ link-1-url}}?CMP=series_embed_box'><li class='link'>{{ link-1-headline }}</li></a>
-                {{/if}}
+                <ul class='links {{#if link-4-url}}links--4{{/if}}'>
+                    {{#if link-1-url}}
+                    <a target='_parent' href='{{ link-1-url}}?CMP=series_embed_box'><li class='link'>{{ link-1-headline }}</li></a>
+                    {{/if}}
 
-                {{#if link-2-url}}
-                <a target='_parent' href='{{ link-2-url}}?CMP=series_embed_box'><li class='link'>{{ link-2-headline }}</li></a>
-                {{/if}}
+                    {{#if link-2-url}}
+                    <a target='_parent' href='{{ link-2-url}}?CMP=series_embed_box'><li class='link'>{{ link-2-headline }}</li></a>
+                    {{/if}}
 
-                {{#if link-3-url}}
-                <a target='_parent' href='{{ link-3-url}}?CMP=series_embed_box'><li class='link'>{{ link-3-headline }}</li></a>
-                {{/if}}
-            </ul>
+                    {{#if link-3-url}}
+                    <a target='_parent' href='{{ link-3-url}}?CMP=series_embed_box'><li class='link'>{{ link-3-headline }}</li></a>
+                    {{/if}}
+                </ul>
             {{/if}}
 
             {{#if read-more-link}}
