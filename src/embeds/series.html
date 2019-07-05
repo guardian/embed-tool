@@ -134,7 +134,7 @@
             font-family: 'Guardian Sans Web';
             font-size: 16px;
             color: #fff;
-            padding: 6px 40px 6px 12px;
+            padding: 6px 32px 6px 12px;
             border-radius: 32px;
             transition: background 0.4s ease-out;
             cursor: pointer;
@@ -144,12 +144,18 @@
             @include mq(240px) {
                 font-size: 16px;
             }
+
             &:hover {
                 text-decoration: none;
                 background-position: right center;
+
+                svg {
+                    transform: translateX(2px);
+                }
             }
         }
-        .button svg{
+
+        .button svg {
             position: absolute;
             right: 4px;
             top: 0;
@@ -158,7 +164,8 @@
             fill: $c-white;
             transition: transform 0.4s ease-out;
         }
-        .button svg path{
+
+        .button svg path {
             fill: $c-white;
         }
 
@@ -266,21 +273,21 @@
             {{#if link-1-url}}
             <ul class='links {{#if link-4-url}}links--4{{/if}}'>
                 {{#if link-1-url}}
-                <a target='_parent' href='{{ link-1-url}}'><li class='link'>{{ link-1-headline }}</li></a>
+                <a target='_parent' href='{{ link-1-url}}?CMP=series_embed_box'><li class='link'>{{ link-1-headline }}</li></a>
                 {{/if}}
 
                 {{#if link-2-url}}
-                <a target='_parent' href='{{ link-2-url}}'><li class='link'>{{ link-2-headline }}</li></a>
+                <a target='_parent' href='{{ link-2-url}}?CMP=series_embed_box'><li class='link'>{{ link-2-headline }}</li></a>
                 {{/if}}
 
                 {{#if link-3-url}}
-                <a target='_parent' href='{{ link-3-url}}'><li class='link'>{{ link-3-headline }}</li></a>
+                <a target='_parent' href='{{ link-3-url}}?CMP=series_embed_box'><li class='link'>{{ link-3-headline }}</li></a>
                 {{/if}}
             </ul>
             {{/if}}
 
             {{#if read-more-link}}
-            <a class='button' target='_parent' href='{{ read-more-link }}'>Read more <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></a>
+            <a class='button' target='_parent' href='{{ read-more-link }}'>More from this series <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></a>
             {{/if}}
         </div>
     </script>
