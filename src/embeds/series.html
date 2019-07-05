@@ -37,10 +37,21 @@
             },
 
             {
+                "name": "Read More Link",
+                "type": "text",
+                "default": "https://www.theguardian.com/",
+                "tip": "Should link to the series front/tag"
+            },
+
+            {
+                "name": "Links",
+                "type": "checkbox"
+            },
+
+            {
                 "name": "Link 1 Headline",
                 "type": "text",
-                "default": "Headline for a story goes here",
-                "tip": "Remove this and the link to remove links entirely"
+                "default": "Headline for a story goes here"
             },
 
             {
@@ -71,13 +82,6 @@
                 "name": "Link 3 Url",
                 "type": "text",
                 "default": "https://www.theguardian.com/"
-            },
-
-            {
-                "name": "Read More Link",
-                "type": "text",
-                "default": "https://www.theguardian.com/",
-                "tip": "Should link to the series front/tag"
             }
         ]
     </script>
@@ -271,7 +275,7 @@
             <div class="content">
                 {{ description }}
             </div>
-            {{#if link-1-url}}
+            {{#if links}}
                 <ul class='links {{#if link-4-url}}links--4{{/if}}'>
                     {{#if link-1-url}}
                     <a target='_parent' href='{{ link-1-url}}?CMP=series_embed_box'><li class='link'>{{ link-1-headline }}</li></a>
