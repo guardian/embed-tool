@@ -65,8 +65,6 @@ data.embeds.forEach(function(embed) {
 
 data.embeds = formattedEmbeds;
 
-    console.log(data);
-
 assets.html(fs.readFileSync('./src/tool/index.html', 'utf8'), data, 'tools/embed-tool/index.html');
 
 if (specs.deploy) {
