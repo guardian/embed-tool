@@ -149,6 +149,7 @@
 
         .old-embeds__title {
             margin: 0;
+            margin-bottom: 12px;
         }
 
         .old-embeds__empty-state {
@@ -233,8 +234,8 @@
     <main>
         <div class='embed-menu'>
             {{#each embeds}}
-                <a target='_self' class='embed-menu__option' href='{{ path }}/tools/embed-tool/{{ handliseFileName @this }}/index.html'>
-                    <h2 class='embed-menu__option-title'>{{ fileToTitle @this }}</h2>
+                <a target='_self' class='embed-menu__option' href='{{ path }}/tools/embed-tool/{{ handliseFileName name }}/index.html'>
+                    <h2 class='embed-menu__option-title'>{{ displayName }}</h2>
                 </a>
             {{/each}}
         </div>

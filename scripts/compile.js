@@ -20,6 +20,8 @@ var data = {
 fs.emptyDirSync(path);
 fs.mkdirsSync(path);
 
+var formattedEmbeds = [];
+
 data.embeds.forEach(function(embed) {
     var dom = new JSDom(fs.readFileSync('./src/embeds/' + embed, 'utf8'));
     var document = dom.window.document;
@@ -54,7 +56,16 @@ data.embeds.forEach(function(embed) {
         fields: fields,
         path: data.path
     }, 'tools/embed-tool/' + embedName + '/index.html');
+
+    formattedEmbeds.push({
+        name: embedName,
+        displayName: displayName
+    });
 });
+
+data.embeds = formattedEmbeds;
+
+    console.log(data);
 
 assets.html(fs.readFileSync('./src/tool/index.html', 'utf8'), data, 'tools/embed-tool/index.html');
 

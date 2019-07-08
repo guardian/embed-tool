@@ -2,10 +2,10 @@
 <html>
 <head>
     <base href="." target="_blank">
-    <title>{{ fileToTitle name }} Embed Tool</title>
+    <title>{{ displayName }} Embed Tool</title>
 </head>
 
-<body>
+<body data-displayName='{{ displayName }}'>
     <style>
         @font-face {
             font-family: 'Guardian Egyptian Web';
@@ -575,9 +575,9 @@
 
             data.push({
                 url: $('.export__url').val(),
-                type: '{{ fileToTitle name }}',
+                type: $('body').attr('data-displayName'),
                 date: new Date(),
-                title: $('[name=\'title\']').val()
+                title: $('[name=\'title\']').val() || $('[name=\'name\']').val()
             });
 
             localStorage.setItem('embedSettings', JSON.stringify(data));
