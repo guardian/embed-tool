@@ -20,6 +20,8 @@ var data = {
 fs.emptyDirSync(path);
 fs.mkdirsSync(path);
 
+fs.copySync('./node_modules/handlebars/dist/handlebars.min.js', path + 'embed/from-tool/handlebars.min.js');
+
 var formattedEmbeds = [];
 
 data.embeds.forEach(function(embed) {
@@ -45,9 +47,6 @@ data.embeds.forEach(function(embed) {
     var embedDest = path + 'embed/from-tool/' + embedName;
     fs.mkdirsSync(embedDest);
     fs.writeFileSync(embedDest + '/index.html', dom.serialize());
-
-    // copy assets
-    fs.copySync('./node_modules/handlebars/dist/handlebars.min.js', embedDest + '/handlebars.min.js');
 
     // create tool page
     assets.html(fs.readFileSync('./src/tool/embed.html', 'utf8'), {
