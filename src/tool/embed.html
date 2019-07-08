@@ -370,7 +370,7 @@
     <main>
         <div class='options'>
             {{#each fields}}
-                <div class='option {{#if visibleOn}}option--visible-on{{/if}}' {{#if visibleOn}}data-visible-on='{{#each visibleOn}}{{@key}}:{{ @this }},{{/each}}'{{/if}}>
+                <div class='option {{#if visibleOn}}option--visible-on{{/if}}' {{#if visibleOn}}data-visible-on='{{#each visibleOn}}{{@key}}:{{ @this }} && {{/each}}'{{/if}}>
                     <h2 class='options__label'>{{ name }}</h2>
 
                     {{#if tip}}
@@ -380,6 +380,10 @@
                     {{#switch type}}
                         {{#case 'text'}}
                             <input class='options__input' type='text' value='{{ default }}' name='{{ handlise name }}'>
+                        {{/case}}
+
+                        {{#case 'number'}}
+                            <input class='options__input' type='number' value='{{ default }}' name='{{ handlise name }}'>
                         {{/case}}
 
                         {{#case 'checkbox'}}
@@ -397,7 +401,7 @@
                         {{#case 'select'}}
                             <select name='{{ handlise name }}' class='options__input'>
                                 {{#each options}}
-                                <option value='{{ handlise this }}'>{{ this }}</option>
+                                <option value='{{ this }}'>{{ this }}</option>
                                 {{/each}}
                             </select>
                         {{/case}}
@@ -516,7 +520,6 @@
                     $('[name=' + $(this).data('name') + ']').prop('checked', true);
                 } else {
                     $(this).removeClass('is-on').addClass('is-off');
-                    console.log($('[name=' + $(this).data('name') + ']'));
                     $('[name=' + $(this).data('name') + ']').prop('checked', false);
                 }
                 refreshEmbed();
@@ -579,16 +582,27 @@
             $('.option--visible-on').each(function(i, el) {
                 var isVisible = true;
                 var values = $(el).data('visible-on');
-                    values = values.substring(0, values.length - 1);
-                    values = values.split(',');
+                    values = values.substring(0, values.length - 4);
+                    values = values.split(' && ');
 
                 values.forEach(function(value) {
                     value = value.split(':');
-                    var $prop = $('[name=\'' + value[0] + '\']')
+                    var key = value[0];
+                    var vals = value[1].split(',');
+                    var $prop = $('[name=\'' + key + '\']');
+
                     if ($prop) {
                         var propState = $prop.attr('type') == 'checkbox' ? $prop.prop('checked') : $prop.val();
 
-                        if (value[1] !== propState.toString()) {
+                        var matchedCount = 0;
+
+                        vals.forEach(function(val) {
+                            if (val !== propState.toString()) {
+                                matchedCount++;
+                            }
+                        });
+
+                        if (vals.length === matchedCount) {
                             isVisible = false;
                         }
                     }
