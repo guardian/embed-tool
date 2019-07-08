@@ -139,6 +139,14 @@
             padding: 12px 0;
         }
 
+        .option--visible-on {
+            display: none;
+        }
+
+        .option.is-visible {
+            display: block;
+        }
+
         .options__label {
             font-size: 13px;
             line-height: 1.1;
@@ -362,7 +370,7 @@
     <main>
         <div class='options'>
             {{#each fields}}
-                <div class='option'>
+                <div class='option {{#if visibleOn}}option--visible-on{{/if}}' {{#if visibleOn}}data-visible-on='{{#each visibleOn}}{{@key}}:{{ @this }},{{/each}}'{{/if}}>
                     <h2 class='options__label'>{{ name }}</h2>
 
                     {{#if tip}}
@@ -566,15 +574,43 @@
             localStorage.setItem('embedSettings', JSON.stringify(data));
         }
 
+        function visibleOnToggles() {
+            $('.is-visible').removeClass('is-visible');
+            $('.option--visible-on').each(function(i, el) {
+                var isVisible = true;
+                var values = $(el).data('visible-on');
+                    values = values.substring(0, values.length - 1);
+                    values = values.split(',');
+
+                values.forEach(function(value) {
+                    value = value.split(':');
+                    var $prop = $('[name=\'' + value[0] + '\']')
+                    if ($prop) {
+                        var propState = $prop.attr('type') == 'checkbox' ? $prop.prop('checked') : $prop.val();
+
+                        if (value[1] !== propState.toString()) {
+                            isVisible = false;
+                        }
+                    }
+                });
+
+                if (isVisible) {
+                    $(el).addClass('is-visible');
+                }
+            })
+        }
+
         function refreshEmbed() {
             buildDataObject();
             buildURL();
+            visibleOnToggles();
         }
 
         function init() {
             populateFields();
             buildDataObject();
             buildURL();
+            visibleOnToggles();
             bindings();
         }
 
