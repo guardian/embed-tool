@@ -24,6 +24,7 @@ data.embeds.forEach(function(embed) {
     var dom = new JSDom(fs.readFileSync('./src/embeds/' + embed, 'utf8'));
     var document = dom.window.document;
     var embedName = embed.split('.')[0];
+    var displayName = document.title.replace(' Embed', '');
 
     // compile sass
     var sass = document.querySelector('script[type=\'application/sass\']');
@@ -49,6 +50,7 @@ data.embeds.forEach(function(embed) {
     // create tool page
     assets.html(fs.readFileSync('./src/tool/embed.html', 'utf8'), {
         name: embedName,
+        displayName: displayName,
         fields: fields,
         path: data.path
     }, 'tools/embed-tool/' + embedName + '/index.html');
