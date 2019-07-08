@@ -2,6 +2,7 @@
 var watch = require('node-watch');
 var cmd = require('node-cmd');
 var static = require('node-static');
+var open = require('open');
 
 var config = require('../scripts/config.json');
 
@@ -27,6 +28,7 @@ var file = new static.Server('./.build', {
 });
 
 console.log('Local preview is available at http://localhost:8080/tools/embed-tool/')
+open('http://localhost:8080/tools/embed-tool/');
 
 require('http').createServer(function (request, response) {
     request.addListener('end', function () {

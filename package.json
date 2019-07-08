@@ -34,6 +34,7 @@
     "node-sass": "^3.13.1",
     "node-static": "^0.7.9",
     "node-watch": "^0.4.1",
+    "open": "^6.4.0",
     "path": "^0.12.7",
     "sass-mq": "^3.3.2",
     "stevedore": "^0.1.4"
