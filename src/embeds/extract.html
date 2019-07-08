@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>Extract Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="handlebars.min.js"></script>
+
+    <script type='application/json'>
+        [
+            {
+                "name": "Document Title",
+                "type": "text",
+                "default": "Court document",
+                "tip": "optional"
+            },
+
+            {
+                "name": "Extract",
+                "type": "textarea",
+                "default": "Lorem Ipsum is simply <strong>dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\n \n It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                "tip": "Use basic HTML for formatting"
+            }
+        ]
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .wrapper {
+            margin: 0;
+            padding: 0;
+            font-family: "Courier New", Courier, monospace;
+            max-width: 620px;
+            box-sizing: border-box;
+            padding: 6px;
+            font-size: 20px;
+            line-height: 24px;
+            color: $c-black;
+            background-color: $c-off-white;
+            border: 1px solid $c-light-grey;
+            text-rendering: optimizeLegibility;
+        }
+
+        .title,
+        .extract {
+            font-size: inherit;
+            line-height: inherit;
+            margin: 0;
+        }
+
+        .extract p {
+            margin-top: 0;
+        }
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper'>
+            {{#if document-title}}
+                <h2 class='title'>{{ document-title }}</h2>
+            {{/if}}
+
+            <div class='extract'>
+                {{{ paragraphise extract }}}
+            </div>
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                if (string) {
+                    return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                }
+            });
+
+            Handlebars.registerHelper('paragraphise', function(string) {
+                if (string) {
+                    return '<p>' + string.replace(/[\n\r]\s*[\n\r]/g, '</p><p>') + '</p>';
+                }
+            })
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
