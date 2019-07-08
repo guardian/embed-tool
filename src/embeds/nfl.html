@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>NFL Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="handlebars.min.js"></script>
+
+    <script type='application/json'>
+        [
+            {
+                "name": "Headline",
+                "type": "text",
+                "default": "vs New York Giants",
+                "tip": "Optional"
+            },
+
+            {
+                "name": "Name",
+                "type": "text",
+                "default": "Forrest Lamp"
+            },
+
+            {
+                "name": "Team",
+                "type": "select",
+                "options": ["No Team", "Arizona Cardinals", "Atlanta Falcons", "Baltimore Ravens", "Buffalo Bills", "Carolina Panthers", "Chicago Bears", "Cincinnati Bengals", "Cleveland Browns", "Dallas Cowboys", "Denver Broncos", "Detroit Lions", "Green Bay Packers", "Houston Texans", "Indianapolis Colts", "Jacksonville Jaguars", "Kansas City Chiefs", "Los Angeles Chargers", "Los Angeles Rams", "Miami Dolphins", "Minnesota Vikings", "New England Patriots", "New Orleans Saints", "New York Giants", "New York Jets", "Oakland Raiders", "Philadelphia Eagles", "Pittsburgh Steelers", "San Francisco 49ers", "Seattle Seahawks", "Tampa Bay Buccaneers", "Tennessee Titans", "Washington"]
+            },
+
+            {
+                "name": "Position",
+                "type": "select",
+                "options": ["Quarterback", "Center", "Offensive guard", "Offensive tackle", "Running back", "Wide receiver", "Tight end", "Defensive tackle", "Defensive end", "Linebacker", "Cornerback", "Full back", "Safety", "Kicker", "Punter"]
+            },
+
+            {
+                "name": "Number",
+                "type": "number",
+                "default": 77
+            },
+
+            {
+                "name": "Touchdowns",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Quarterback", "Running back", "Full back", "Wide receiver", "Tight end"]
+                }
+            },
+
+            {
+                "name": "Interceptions",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Quarterback", "Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
+                }
+            },
+
+            {
+                "name": "Receptions",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Wide receiver", "Tight end"]
+                }
+            },
+
+            {
+                "name": "Yards",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Quarterback", "Running back", "Full back", "Wide receiver", "Tight end"]
+                }
+            },
+
+            {
+                "name": "Rating",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": "Quarterback"
+                }
+            },
+
+            {
+                "name": "Carries",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Running back", "Full back"]
+                }
+            },
+
+            {
+                "name": "Punts",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": "Punter"
+                }
+            },
+
+            {
+                "name": "Average",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Running back", "Full back", "Wide receiver", "Tight end", "Full back", "Punter"]
+                }
+            },
+
+            {
+                "name": "Inside Opponent's 20",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": "Punter"
+                }
+            },
+
+            {
+                "name": "Field Goals",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": "Kicker"
+                }
+            },
+
+            {
+                "name": "Field Goals Attempted",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": "Kicker"
+                }
+            },
+
+            {
+                "name": "Longest",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Punter", "Kicker"]
+                }
+            },
+
+            {
+                "name": "Tackles",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
+                }
+            },
+
+            {
+                "name": "Sacks",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
+                }
+            },
+
+            {
+                "name": "Forced Fumbles",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
+                }
+            },
+
+            {
+                "name": "Games",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Center", "Offensive guard", "Offensive tackle"]
+                }
+            },
+
+            {
+                "name": "Games Started",
+                "type": "number",
+                "default": 0,
+                "visibleOn": {
+                    "position": ["Center", "Offensive guard", "Offensive tackle"]
+                }
+            }
+        ]
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .header {
+            position: relative;
+            padding: 4px 0 36px 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .header__name {
+            margin: 0 0 2px;
+            font-weight: normal;
+            font-family: 'Guardian Egyptian Web';
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 1.1;
+            color: $c-black;
+        }
+
+        .header__name--type {
+            color: $c-blue;
+        }
+
+        .header__meta {
+            position: absolute;
+            bottom: 6px;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1;
+            font-weight: normal;
+            font-family: 'Guardian Sans Web';
+            color: $c-black;
+
+            span:first-of-type {
+                position: relative;
+                margin-right: 12px;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    top: 0;
+                    bottom: 0;
+                    right: -10px;
+                    margin: auto;
+                    background-color: $c-blue;
+                    border-radius: 4px;
+                }
+            }
+        }
+
+        .header__number {
+            position: absolute;
+            font-family: 'Guardian Figures';
+            font-weight: bold;
+            top: 0px;
+            line-height: 1;
+            right: 0px;
+            opacity: 0.2;
+            font-size: 60px;
+
+            &:before {
+                content: '#';
+                font-family: 'Guardian Egyptian Web';
+                font-weight: 300;
+            }
+        }
+
+        .stat {
+            position: relative;
+            width: 100%;
+            border-top: 1px dotted $c-light-grey;
+            padding: 5px 0 18px 0;
+            box-sizing: border-box;
+            font-family: 'Guardian Sans Web';
+            color: $c-black;
+
+            &--last,
+            &:last-of-type {
+                border-right: 0;
+            }
+        }
+
+        .stat__number {
+            font-family: 'Guardian Figures';
+            color: $c-blue;
+            font-weight: normal;
+            font-size: 24px;
+            line-height: 1.2;
+            text-align: right;
+            position: absolute;
+            right: 0;
+            top: 2px;
+        }
+
+        @mixin colourScheme($team, $primaryColour, $secondaryColour) {
+            .wrapper--#{$team} {
+                .header__name,
+                .header__meta,
+                .header__number {
+                    color: $primaryColour;
+                }
+
+                .header__name--type {
+                    color: $secondaryColour;
+                }
+
+                .stat__number {
+                    color: $primaryColour;
+                }
+
+                .header__meta span:first-of-type:after {
+                    background-color: $secondaryColour;
+                }
+            }
+        }
+
+        @include colourScheme('generic', $c-black, $c-blue);
+        @include colourScheme('arizona-cardinals', $c-red, $c-black);
+        @include colourScheme('atlanta-falcons', $c-red, $c-black);
+        @include colourScheme('baltimore-ravens', $c-dark-purple, $c-off-yellow);
+        @include colourScheme('buffalo-bills', $c-dark-blue, $c-red);
+        @include colourScheme('carolina-panthers', $c-black, $c-light-blue);
+        @include colourScheme('chicago-bears', $c-dark-blue, $c-orange);
+        @include colourScheme('cincinnati-bengals', $c-orange, $c-black);
+        @include colourScheme('cleveland-browns', $c-orange, $c-black);
+        @include colourScheme('dallas-cowboys', $c-dark-blue, $c-blue);
+        @include colourScheme('denver-broncos', $c-orange, $c-dark-blue);
+        @include colourScheme('detroit-lions', $c-light-blue, $c-grey);
+        @include colourScheme('green-bay-packers', $c-green, $c-off-yellow);
+        @include colourScheme('houston-texans', $c-dark-blue, $c-red);
+        @include colourScheme('indianapolis-colts', $c-light-blue, $c-blue);
+        @include colourScheme('jacksonville-jaguars', #008080, $c-light-brown);
+        @include colourScheme('kansas-city-chiefs', $c-red, $c-off-yellow);
+        @include colourScheme('los-angeles-chargers', $c-dark-blue, $c-off-yellow);
+        @include colourScheme('los-angeles-rams', $c-dark-blue, $c-light-brown);
+        @include colourScheme('miami-dolphins', #008080, $c-orange);
+        @include colourScheme('minnesota-vikings', $c-dark-purple, $c-off-yellow);
+        @include colourScheme('new-england-patriots', $c-dark-blue, $c-red);
+        @include colourScheme('new-orleans-saints', $c-black, $c-light-brown);
+        @include colourScheme('new-york-giants', $c-dark-blue, $c-red);
+        @include colourScheme('new-york-jets', $c-green, $c-black);
+        @include colourScheme('oakland-raiders', $c-black, $c-grey);
+        @include colourScheme('philadelphia-eagles', $c-green, $c-grey);
+        @include colourScheme('pittsburgh-steelers', $c-black, $c-off-yellow);
+        @include colourScheme('san-francisco-49ers', $c-red, $c-light-brown);
+        @include colourScheme('seattle-seahawks', $c-dark-blue, $c-light-green);
+        @include colourScheme('tampa-bay-buccaneers', $c-red, $c-black);
+        @include colourScheme('tennessee-titans', $c-blue, $c-dark-blue);
+        @include colourScheme('washington', $c-dark-red, $c-off-yellow);
+
+        .wrapper--generic {
+            .header__meta .input[data-input='team'] {
+                display: none;
+            }
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper wrapper--{{ handlise team }}'>
+            <div class='header'>
+                <h1 class='header__name input' data-input='name'>{{ name }}</h1>
+                {{#if headline}}
+                    <h1 class='header__name header__name--type input' data-input='headline'>{{ headline }}</h1>
+                {{/if }}
+
+                <h2 class='header__meta'>
+                    <span class='input' data-input='team'>{{ team }}</span>
+                    <span class='input' data-input='position'>{{ position }}</span>
+                </h2>
+
+                <span class='header__number input' data-input='player-number'>{{ number }}</span>
+            </div>
+
+            <div class='stats'>
+                {{#if touchdowns}}
+                    <div class='stat'>
+                        <div class='stat__name'>Touchdowns</div>
+                        <div class='stat__number'>{{ touchdowns }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if interceptions}}
+                    <div class='stat'>
+                        <div class='stat__name'>Interceptions</div>
+                        <div class='stat__number'>{{ interceptions }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if yards}}
+                    <div class='stat'>
+                        <div class='stat__name'>Yards</div>
+                        <div class='stat__number'>{{ yards }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if rating}}
+                    <div class='stat'>
+                        <div class='stat__name'>Rating</div>
+                        <div class='stat__number'>{{ rating }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if carries}}
+                    <div class='stat'>
+                        <div class='stat__name'>Carries</div>
+                        <div class='stat__number'>{{ carries }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if average}}
+                    <div class='stat'>
+                        <div class='stat__name'>Average</div>
+                        <div class='stat__number'>{{ average }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if punts}}
+                    <div class='stat'>
+                        <div class='stat__name'>Punts</div>
+                        <div class='stat__number'>{{ punts }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if length}}
+                    <div class='stat'>
+                        <div class='stat__name'>Length</div>
+                        <div class='stat__number'>{{ length }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if inside-opponents-20}}
+                    <div class='stat'>
+                        <div class='stat__name'>Inside Opponent's 20</div>
+                        <div class='stat__number'>{{ inside-opponents-20 }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if field-goals}}
+                    <div class='stat'>
+                        <div class='stat__name'>Field goals</div>
+                        <div class='stat__number'>{{ field-goals }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if field-goals-attempted}}
+                    <div class='stat'>
+                        <div class='stat__name'>Field goals attempted</div>
+                        <div class='stat__number'>{{ field-goals-attempted }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if tackles}}
+                    <div class='stat'>
+                        <div class='stat__name'>Tackles</div>
+                        <div class='stat__number'>{{ tackles }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if sacks}}
+                    <div class='stat'>
+                        <div class='stat__name'>Sacks</div>
+                        <div class='stat__number'>{{ sacks }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if forced-fumbles}}
+                    <div class='stat'>
+                        <div class='stat__name'>Forced fumbles</div>
+                        <div class='stat__number'>{{ forced-fumbles }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if longest}}
+                    <div class='stat'>
+                        <div class='stat__name'>Longest</div>
+                        <div class='stat__number'>{{ longest }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if games}}
+                    <div class='stat'>
+                        <div class='stat__name'>Games</div>
+                        <div class='stat__number'>{{ games }}</div>
+                    </div>
+                {{/if}}
+
+                {{#if games-started}}
+                    <div class='stat'>
+                        <div class='stat__name'>Games Started</div>
+                        <div class='stat__number'>{{ games-started }}</div>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                if (string) {
+                    return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                }
+            });
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+        }
+
+        init();
+    </script>
+</body>

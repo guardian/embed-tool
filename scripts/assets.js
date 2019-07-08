@@ -14,7 +14,7 @@ module.exports = {
     html: function(html, data, exportPath) {
         handlebars.registerHelper('handlise', function(string) {
             if (string) {
-                return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '').replace(/'/g, '');
             }
         });
 

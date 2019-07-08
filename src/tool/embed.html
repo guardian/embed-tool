@@ -483,15 +483,21 @@
         }
 
         function buildDataObject() {
+            data = {};
+
             $('.options__input').each(function(i, el) {
-                if ($(el).attr('type') == 'checkbox') {
-                    if ($(el).is(':checked')) {
-                        data[$(el).attr('name')] = true;
+                var $option = $(el).parent();
+
+                if (!$option.hasClass('option--visible-on') || ($option.hasClass('option--visible-on') && $option.hasClass('is-visible'))) {
+                    if ($(el).attr('type') == 'checkbox') {
+                        if ($(el).is(':checked')) {
+                            data[$(el).attr('name')] = true;
+                        } else {
+                            data[$(el).attr('name')] = false;
+                        }
                     } else {
-                        data[$(el).attr('name')] = false;
+                        data[$(el).attr('name')] = $(el).val();
                     }
-                } else {
-                    data[$(el).attr('name')] = $(el).val();
                 }
             });
         }
@@ -615,16 +621,16 @@
         }
 
         function refreshEmbed() {
+            visibleOnToggles();
             buildDataObject();
             buildURL();
-            visibleOnToggles();
         }
 
         function init() {
+            visibleOnToggles();
             populateFields();
             buildDataObject();
             buildURL();
-            visibleOnToggles();
             bindings();
         }
 
