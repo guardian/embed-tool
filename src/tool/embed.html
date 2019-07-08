@@ -577,7 +577,7 @@
                 url: $('.export__url').val(),
                 type: $('body').attr('data-displayName'),
                 date: new Date(),
-                title: $('[name=\'title\']').val() || $('[name=\'name\']').val()
+                title: $('[name=\'title\']').val() || $('[name=\'name\']').val() || $('[name=\'document-title\']').val()
             });
 
             localStorage.setItem('embedSettings', JSON.stringify(data));
