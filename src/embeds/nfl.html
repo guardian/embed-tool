@@ -205,6 +205,12 @@
         @import './src/common/style/fonts';
         @import './src/common/style/base';
 
+        .wrapper {
+            position: relative;
+            border-top: 1px solid $c-light-grey;
+            border-bottom: 1px solid $c-light-grey;
+        }
+
         .header {
             position: relative;
             padding: 4px 0 36px 0;
@@ -275,7 +281,7 @@
         .stat {
             position: relative;
             width: 100%;
-            border-top: 1px dotted $c-light-grey;
+            border-top: 1px solid $c-light-grey;
             padding: 5px 0 18px 0;
             box-sizing: border-box;
             font-family: 'Guardian Sans Web';
@@ -355,7 +361,7 @@
         @include colourScheme('tennessee-titans', $c-blue, $c-dark-blue);
         @include colourScheme('washington', $c-dark-red, $c-off-yellow);
 
-        .wrapper--generic {
+        .wrapper--no-team {
             .header__meta .input[data-input='team'] {
                 display: none;
             }
