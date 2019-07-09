@@ -1,4 +1,3 @@
-// dependancies
 var fs = require('fs-extra');
 var deasync = require('deasync');
 var JSDom = require('jsdom').JSDOM;
@@ -19,7 +18,6 @@ var data = {
 
 fs.emptyDirSync(path);
 fs.mkdirsSync(path);
-
 fs.copySync('./node_modules/handlebars/dist/handlebars.min.js', path + 'embed/from-tool/handlebars.min.js');
 
 var formattedEmbeds = {};
@@ -68,8 +66,6 @@ data.embeds.forEach(function(embed) {
 });
 
 data.embeds = formattedEmbeds;
-
-console.log(data);
 
 assets.html(fs.readFileSync('./src/tool/index.html', 'utf8'), data, 'tools/embed-tool/index.html');
 
