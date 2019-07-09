@@ -18,6 +18,12 @@
             "tip": "Number embeds should be used to emphasise specific stat-lines that are core to the piece",
             "fields": [
                 {
+                    "name": "Vertical",
+                    "type": "select",
+                    "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts", "Commercial"]
+                },
+
+                {
                     "name": "Number",
                     "type": "text",
                     "default": "20%"
@@ -39,15 +45,41 @@
         @import './src/common/style/fonts';
         @import './src/common/style/base';
 
+        .wrapper {
+            -webkit-font-smoothing: antialiased;
+        }
+
         .number {
             display: block;
-            color: $c-red;
             font-family: 'Guardian Figures';
             font-size: 48px;
             line-height: 1;
             margin: 0;
             font-weight: normal;
-            -webkit-font-smoothing: antialiased;
+
+            .wrapper--news & {
+                color: $c-red;
+            }
+
+            .wrapper--sport & {
+                color: $c-blue;
+            }
+
+            .wrapper--opinion & {
+                color: $c-orange;
+            }
+
+            .wrapper--lifestyle & {
+                color: $c-purple;
+            }
+
+            .wrapper--arts & {
+                color: $c-brown;
+            }
+
+            .wrapper--commercial & {
+                color: $c-teal;
+            }
         }
 
         .number span {
@@ -70,7 +102,7 @@
     </div>
 
     <script class="template" type="text/x-handlebars-template">
-        <div class='wrapper'>
+        <div class='wrapper wrapper--{{ handlise vertical }}'>
             <h2 class='number'>{{{ formatNumber number }}}</h2>
             <p class='title'>{{ title }}</p>
         </div>
