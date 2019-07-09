@@ -40,7 +40,7 @@ data.embeds.forEach(function(embed) {
 
     // get fields from inline JSON
     var json = document.querySelector('script[type=\'application/json\']');
-    var fields = JSON.parse(json.innerHTML);
+    var embedData = JSON.parse(json.innerHTML);
     json.parentNode.removeChild(json);
 
     // write embed
@@ -48,13 +48,12 @@ data.embeds.forEach(function(embed) {
     fs.mkdirsSync(embedDest);
     fs.writeFileSync(embedDest + '/index.html', dom.serialize());
 
+    embedData.name = embedName;
+    embedData.displayName = displayName;
+    embedData.path = data.path;
+
     // create tool page
-    assets.html(fs.readFileSync('./src/tool/embed.html', 'utf8'), {
-        name: embedName,
-        displayName: displayName,
-        fields: fields,
-        path: data.path
-    }, 'tools/embed-tool/' + embedName + '/index.html');
+    assets.html(fs.readFileSync('./src/tool/embed.html', 'utf8'), embedData, 'tools/embed-tool/' + embedName + '/index.html');
 
     formattedEmbeds.push({
         name: embedName,

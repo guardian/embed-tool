@@ -156,6 +156,27 @@
             margin: 0px 12px 8px 0;
         }
 
+        .options__main-tip {
+            position: relative;
+            font-family: 'Guardian Agate Sans';
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 1.1;
+            color: #212121;
+            padding-bottom: 16px;
+            padding-top: 8px;
+        }
+
+        .options__main-tip:after {
+            content: '';
+            position: absolute;
+            width: calc(100% + 40px);
+            left: -20px;
+            bottom: 0;
+            height: 2px;
+            background-color: #fff;
+        }
+
         .options__tip {
             width: 50%;
             position: absolute;
@@ -280,6 +301,15 @@
             display: block;
         }
 
+        .preview__iframe--thumbnail {
+            width: 140px;
+            height: 600px;
+        }
+
+        .preview__iframe--inline {
+            width: 620px;
+        }
+
         input,
         textarea {
             padding: 8px;
@@ -369,6 +399,10 @@
 
     <main>
         <div class='options'>
+            <div class='options__main-tip'>
+                {{ tip }}<br />
+                Suggested width: {{ size }}
+            </div>
             {{#each fields}}
                 <div class='option {{#if visibleOn}}option--visible-on{{/if}}' {{#if visibleOn}}data-visible-on='{{#each visibleOn}}{{@key}}:{{ @this }} && {{/each}}'{{/if}}>
                     <h2 class='options__label'>{{ name }}</h2>
@@ -411,7 +445,7 @@
         </div>
 
         <div class='preview'>
-            <iframe class='preview__iframe'></iframe>
+            <iframe class='preview__iframe preview__iframe--{{ size }}'></iframe>
         </div>
     </main>
 

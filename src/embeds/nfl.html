@@ -12,191 +12,195 @@
     <script type='text/javascript' src="../handlebars.min.js"></script>
 
     <script type='application/json'>
-        [
-            {
-                "name": "Headline",
-                "type": "text",
-                "default": "vs New York Giants",
-                "tip": "Optional"
-            },
+        {
+            "size": "supporting",
+            "tip": "NFL embeds should be used to highlight players mentioned within the piece when they've had a notable game or season",
+            "fields": [
+                {
+                    "name": "Headline",
+                    "type": "text",
+                    "default": "vs New York Giants",
+                    "tip": "Optional"
+                },
 
-            {
-                "name": "Name",
-                "type": "text",
-                "default": "Forrest Lamp"
-            },
+                {
+                    "name": "Name",
+                    "type": "text",
+                    "default": "Forrest Lamp"
+                },
 
-            {
-                "name": "Team",
-                "type": "select",
-                "options": ["No Team", "Arizona Cardinals", "Atlanta Falcons", "Baltimore Ravens", "Buffalo Bills", "Carolina Panthers", "Chicago Bears", "Cincinnati Bengals", "Cleveland Browns", "Dallas Cowboys", "Denver Broncos", "Detroit Lions", "Green Bay Packers", "Houston Texans", "Indianapolis Colts", "Jacksonville Jaguars", "Kansas City Chiefs", "Los Angeles Chargers", "Los Angeles Rams", "Miami Dolphins", "Minnesota Vikings", "New England Patriots", "New Orleans Saints", "New York Giants", "New York Jets", "Oakland Raiders", "Philadelphia Eagles", "Pittsburgh Steelers", "San Francisco 49ers", "Seattle Seahawks", "Tampa Bay Buccaneers", "Tennessee Titans", "Washington"]
-            },
+                {
+                    "name": "Team",
+                    "type": "select",
+                    "options": ["No Team", "Arizona Cardinals", "Atlanta Falcons", "Baltimore Ravens", "Buffalo Bills", "Carolina Panthers", "Chicago Bears", "Cincinnati Bengals", "Cleveland Browns", "Dallas Cowboys", "Denver Broncos", "Detroit Lions", "Green Bay Packers", "Houston Texans", "Indianapolis Colts", "Jacksonville Jaguars", "Kansas City Chiefs", "Los Angeles Chargers", "Los Angeles Rams", "Miami Dolphins", "Minnesota Vikings", "New England Patriots", "New Orleans Saints", "New York Giants", "New York Jets", "Oakland Raiders", "Philadelphia Eagles", "Pittsburgh Steelers", "San Francisco 49ers", "Seattle Seahawks", "Tampa Bay Buccaneers", "Tennessee Titans", "Washington"]
+                },
 
-            {
-                "name": "Position",
-                "type": "select",
-                "options": ["Quarterback", "Center", "Offensive guard", "Offensive tackle", "Running back", "Wide receiver", "Tight end", "Defensive tackle", "Defensive end", "Linebacker", "Cornerback", "Full back", "Safety", "Kicker", "Punter"]
-            },
+                {
+                    "name": "Position",
+                    "type": "select",
+                    "options": ["Quarterback", "Center", "Offensive guard", "Offensive tackle", "Running back", "Wide receiver", "Tight end", "Defensive tackle", "Defensive end", "Linebacker", "Cornerback", "Full back", "Safety", "Kicker", "Punter"]
+                },
 
-            {
-                "name": "Number",
-                "type": "number",
-                "default": 77
-            },
+                {
+                    "name": "Number",
+                    "type": "number",
+                    "default": 77
+                },
 
-            {
-                "name": "Touchdowns",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Quarterback", "Running back", "Full back", "Wide receiver", "Tight end"]
+                {
+                    "name": "Touchdowns",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Quarterback", "Running back", "Full back", "Wide receiver", "Tight end"]
+                    }
+                },
+
+                {
+                    "name": "Interceptions",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Quarterback", "Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
+                    }
+                },
+
+                {
+                    "name": "Receptions",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Wide receiver", "Tight end"]
+                    }
+                },
+
+                {
+                    "name": "Yards",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Quarterback", "Running back", "Full back", "Wide receiver", "Tight end"]
+                    }
+                },
+
+                {
+                    "name": "Rating",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": "Quarterback"
+                    }
+                },
+
+                {
+                    "name": "Carries",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Running back", "Full back"]
+                    }
+                },
+
+                {
+                    "name": "Punts",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": "Punter"
+                    }
+                },
+
+                {
+                    "name": "Average",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Running back", "Full back", "Wide receiver", "Tight end", "Full back", "Punter"]
+                    }
+                },
+
+                {
+                    "name": "Inside Opponent's 20",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": "Punter"
+                    }
+                },
+
+                {
+                    "name": "Field Goals",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": "Kicker"
+                    }
+                },
+
+                {
+                    "name": "Field Goals Attempted",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": "Kicker"
+                    }
+                },
+
+                {
+                    "name": "Longest",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Punter", "Kicker"]
+                    }
+                },
+
+                {
+                    "name": "Tackles",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
+                    }
+                },
+
+                {
+                    "name": "Sacks",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
+                    }
+                },
+
+                {
+                    "name": "Forced Fumbles",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
+                    }
+                },
+
+                {
+                    "name": "Games",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Center", "Offensive guard", "Offensive tackle"]
+                    }
+                },
+
+                {
+                    "name": "Games Started",
+                    "type": "number",
+                    "default": 0,
+                    "visibleOn": {
+                        "position": ["Center", "Offensive guard", "Offensive tackle"]
+                    }
                 }
-            },
-
-            {
-                "name": "Interceptions",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Quarterback", "Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
-                }
-            },
-
-            {
-                "name": "Receptions",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Wide receiver", "Tight end"]
-                }
-            },
-
-            {
-                "name": "Yards",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Quarterback", "Running back", "Full back", "Wide receiver", "Tight end"]
-                }
-            },
-
-            {
-                "name": "Rating",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": "Quarterback"
-                }
-            },
-
-            {
-                "name": "Carries",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Running back", "Full back"]
-                }
-            },
-
-            {
-                "name": "Punts",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": "Punter"
-                }
-            },
-
-            {
-                "name": "Average",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Running back", "Full back", "Wide receiver", "Tight end", "Full back", "Punter"]
-                }
-            },
-
-            {
-                "name": "Inside Opponent's 20",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": "Punter"
-                }
-            },
-
-            {
-                "name": "Field Goals",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": "Kicker"
-                }
-            },
-
-            {
-                "name": "Field Goals Attempted",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": "Kicker"
-                }
-            },
-
-            {
-                "name": "Longest",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Punter", "Kicker"]
-                }
-            },
-
-            {
-                "name": "Tackles",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
-                }
-            },
-
-            {
-                "name": "Sacks",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
-                }
-            },
-
-            {
-                "name": "Forced Fumbles",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Defensive tackle", "Defensive end", "Linebacker", "Safety", "Cornerback"]
-                }
-            },
-
-            {
-                "name": "Games",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Center", "Offensive guard", "Offensive tackle"]
-                }
-            },
-
-            {
-                "name": "Games Started",
-                "type": "number",
-                "default": 0,
-                "visibleOn": {
-                    "position": ["Center", "Offensive guard", "Offensive tackle"]
-                }
-            }
-        ]
+            ]
+        }
     </script>
 
     <script type='application/sass'>

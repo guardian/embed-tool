@@ -12,96 +12,100 @@
     <script type='text/javascript' src="../handlebars.min.js"></script>
 
     <script type='application/json'>
-        [
-            {
-                "name": "Vertical",
-                "type": "select",
-                "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts", "Commercial"]
-            },
+        {
+            "size": "supporting",
+            "tip": "Series embeds should be used to communicate that a piece is part of an ongoing series. The links provided should be to other pieces of guardian content only.",
+            "fields": [
+                {
+                    "name": "Vertical",
+                    "type": "select",
+                    "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts", "Commercial"]
+                },
 
-            {
-                "name": "Opinion Tint",
-                "type": "checkbox"
-            },
+                {
+                    "name": "Opinion Tint",
+                    "type": "checkbox"
+                },
 
-            {
-                "name": "Title",
-                "type": "text",
-                "default": "Headline for the box: Probably a series name"
-            },
+                {
+                    "name": "Title",
+                    "type": "text",
+                    "default": "Headline for the box: Probably a series name"
+                },
 
-            {
-                "name": "Description",
-                "type": "textarea",
-                "default": "I am the description of the series. This should be short and not be too long. Otherwise people just won't read it."
-            },
+                {
+                    "name": "Description",
+                    "type": "textarea",
+                    "default": "I am the description of the series. This should be short and not be too long. Otherwise people just won't read it."
+                },
 
-            {
-                "name": "Read More Link",
-                "type": "text",
-                "default": "https://www.theguardian.com/",
-                "tip": "Should link to the series front/tag"
-            },
+                {
+                    "name": "Read More Link",
+                    "type": "text",
+                    "default": "https://www.theguardian.com/",
+                    "tip": "Should link to the series front/tag"
+                },
 
-            {
-                "name": "Links",
-                "type": "checkbox"
-            },
+                {
+                    "name": "Links",
+                    "type": "checkbox"
+                },
 
-            {
-                "name": "Link 1 Headline",
-                "type": "text",
-                "default": "Headline for a story goes here",
-                "visibleOn": {
-                    "links": true
+                {
+                    "name": "Link 1 Headline",
+                    "type": "text",
+                    "default": "Headline for a story goes here",
+                    "visibleOn": {
+                        "links": true
+                    }
+                },
+
+                {
+                    "name": "Link 1 Url",
+                    "type": "text",
+                    "default": "https://www.theguardian.com/",
+                    "visibleOn": {
+                        "links": true
+                    }
+                },
+
+                {
+                    "name": "Link 2 Headline",
+                    "type": "text",
+                    "default": "Headline for a story goes here",
+                    "visibleOn": {
+                        "links": true
+                    }
+                },
+
+                {
+                    "name": "Link 2 Url",
+                    "type": "text",
+                    "default": "https://www.theguardian.com/",
+                    "visibleOn": {
+                        "links": true
+                    }
+                },
+
+                {
+                    "name": "Link 3 Headline",
+                    "type": "text",
+                    "default": "Headline for a story goes here",
+                    "visibleOn": {
+                        "links": true
+                    }
+                },
+
+                {
+                    "name": "Link 3 Url",
+                    "type": "text",
+                    "default": "https://www.theguardian.com/",
+                    "visibleOn": {
+                        "links": true
+                    }
                 }
-            },
-
-            {
-                "name": "Link 1 Url",
-                "type": "text",
-                "default": "https://www.theguardian.com/",
-                "visibleOn": {
-                    "links": true
-                }
-            },
-
-            {
-                "name": "Link 2 Headline",
-                "type": "text",
-                "default": "Headline for a story goes here",
-                "visibleOn": {
-                    "links": true
-                }
-            },
-
-            {
-                "name": "Link 2 Url",
-                "type": "text",
-                "default": "https://www.theguardian.com/",
-                "visibleOn": {
-                    "links": true
-                }
-            },
-
-            {
-                "name": "Link 3 Headline",
-                "type": "text",
-                "default": "Headline for a story goes here",
-                "visibleOn": {
-                    "links": true
-                }
-            },
-
-            {
-                "name": "Link 3 Url",
-                "type": "text",
-                "default": "https://www.theguardian.com/",
-                "visibleOn": {
-                    "links": true
-                }
-            }
-        ]
+            ]
+        }
     </script>
 
     <script type='application/sass'>
