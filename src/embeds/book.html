@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>Book Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="../handlebars.min.js"></script>
+
+    <script type='application/json'>
+        {
+            "type": "General",
+            "size": "thumbnail",
+            "tip": "Book embeds should be to communicate that a piece is a book extract. Links are optional and should only be provided if explicitly asked by the publisher",
+            "fields": [
+                {
+                    "name": "Image",
+                    "type": "text",
+                    "default": "https://media.gutools.co.uk/images/decfbe876e8010ba4ade645370ce6201d43b8b53?crop=0_0_1526_2339",
+                    "tip": "Link to a cropped grid image or an S3 hosted image"
+                },
+
+                {
+                    "name": "Title",
+                    "type": "text",
+                    "default": "The Sam Morris Story"
+                },
+
+                {
+                    "name": "Author",
+                    "type": "text",
+                    "default": "Sam Morris"
+                },
+
+                {
+                    "name": "Publisher",
+                    "type": "text",
+                    "default": "Penguin Random House"
+                },
+
+                {
+                    "name": "Link",
+                    "type": "text",
+                    "default": "www.amazon.com",
+                    "tip": "Optional"
+                }
+            ]
+        }
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .wrapper {
+            border-top: 1px solid $c-light-grey;
+            border-bottom: 1px solid $c-light-grey;
+            padding: 6px 0;
+            text-align: center;
+            font-family: 'Guardian Sans Web';
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .book {
+            position: relative;
+            display: inline-block;
+            margin-left: -4px;
+            margin-bottom: 12px;
+
+            &:before {
+                content: '';
+                position: absolute;
+                z-index: 5;
+                top: 0;
+                bottom: -8px;
+                width: 10px;
+                background-color: $c-white;
+                left: -10px;
+            }
+        }
+
+        .book__image {
+            position: relative;
+            z-index: 3;
+            width: 100px;
+            display: block;
+            border: 1px solid $c-black;
+        }
+
+        .book__page {
+            position: absolute;
+            width: calc(100% + 6px);
+            height: 100%;
+            z-index: 2;
+            top: 4px;
+            left: 0px;
+            border: 1px solid $c-black;
+            background-color: $c-white;
+            border-radius: 0 0 0 6px;
+        }
+
+        .book__page--2 {
+            z-index: 1;
+            width: calc(100% + 16px);
+            top: 8px;
+            left: -4px;
+            border-radius: 0 0 0 20px;
+        }
+
+        .header,
+        .title,
+        .author {
+            font-weight: bold;
+            color: $c-black;
+            font-size: 16px;
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        .header {
+            margin: 0px 0 6px;
+        }
+
+        .author {
+            font-weight: normal;
+        }
+
+        .publisher {
+            font-size: 14px;
+            line-height: 1.4;
+            color: $c-dark-grey;
+            font-weight: normal;
+            margin: 2px 0 0 0;
+        }
+
+        a.button {
+            background-color: $c-yellow;
+            position: relative;
+            display: inline-block;
+            font-family: 'Guardian Sans Web';
+            font-size: 14px;
+            color: $c-black;
+            padding: 6px 32px 6px 12px;
+            border-radius: 32px;
+            transition: background 0.4s ease-out;
+            cursor: pointer;
+            margin: 4px 0;
+
+            &:hover {
+                text-decoration: none;
+                background: $c-off-yellow;
+
+                svg {
+                    transform: translateX(2px);
+                }
+            }
+        }
+
+        .button svg {
+            position: absolute;
+            right: 4px;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            fill: $c-black;
+            transition: transform 0.4s ease-out;
+        }
+
+        .button svg path {
+            fill: $c-black;
+        }
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper'>
+            <h3 class='header'>An extract from&hellip;</h3>
+            <div class='book'>
+                <img class='book__image' src='{{ gridToLink image }}' />
+                <div class='book__page'></div>
+                <div class='book__page book__page--2'></div>
+            </div>
+            <h3 class='title'>{{ title }}</h3>
+            <h3 class='author'>by {{ author }}</h3>
+            <h3 class='publisher'>{{ publisher }}</h3>
+
+            {{#if link}}
+                <a class='button' target='_parent' href='{{ link }}'>Learn more <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></a>
+            {{/if}}
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                if (string) {
+                    return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                }
+            });
+
+            Handlebars.registerHelper('paragraphise', function(string) {
+                if (string) {
+                    return '<p>' + string.replace(/[\n\r]\s*[\n\r]/g, '</p><p>') + '</p>';
+                }
+            })
+
+            Handlebars.registerHelper('gridToLink', function(url) {
+                if (url.includes('gutools.co.uk')) {
+                    var crop = url.split('?crop=')[1];
+                    var cropDimensions = crop.split('_');
+
+                    var cropWidth = cropDimensions[2] - cropDimensions[0];
+                    var cropHeight = cropDimensions[3] - cropDimensions[1];
+
+                    if (cropHeight > cropWidth) {
+                        var ratio = 500 / cropHeight;
+                        size = Math.round(cropWidth * ratio);
+                    } else {
+                        size = 500;
+                    }
+
+                    url = url.replace('gutools.co.uk', 'guim.co.uk');
+                    url = url.replace('http://', 'https://');
+                    url = url.replace('images/', '');
+                    url = url.split('?')[0];
+
+                    return url + '/' + crop + '/' + size + '.jpg';
+                } else if (url) {
+                    return url;
+                }
+            });
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+        }
+
+        init();
+    </script>
+</body>

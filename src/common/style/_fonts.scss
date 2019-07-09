@@ -142,12 +142,24 @@
 
 @font-face {
     font-family: 'Guardian Sans Web';
-    src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Sans Web-Regular.eot');
-    src: url('https://interactive.guim.co.uk/fonts/latin1/Guardian Sans Web-Regular.eot?#iefix') format('embedded-opentype'),
-         url('https://interactive.guim.co.uk/fonts/latin1/Guardian Sans Web-Regular.woff') format('woff'),
-         url('https://interactive.guim.co.uk/fonts/latin1/Guardian Sans Web-Regular.ttf') format('truetype'),
-         url('https://interactive.guim.co.uk/fonts/latin1/Guardian Sans Web-Regular.svg#Guardian Sans Web-Regular') format('svg');
+    src: url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianSansWeb/GuardianSansWeb-Regular.eot');
+    src: url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianSansWeb/GuardianSansWeb-Regular.eot?#iefix') format('embedded-opentype'),
+         url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianSansWeb/GuardianSansWeb-Regular.woff') format('woff'),
+         url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianSansWeb/GuardianSansWeb-Regular.ttf') format('truetype'),
+         url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianSansWeb/GuardianSansWeb-Regular.svg#Guardian Sans Web-Regular') format('svg');
     font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: 'Guardian Sans Web';
+    src: url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianSansWeb/GuardianSansWeb-Semibold.eot');
+    src: url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianSansWeb/GuardianSansWeb-Semibold.eot?#iefix') format('embedded-opentype'),
+         url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianSansWeb/GuardianSansWeb-Semibold.woff') format('woff'),
+         url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianSansWeb/GuardianSansWeb-Semibold.ttf') format('truetype'),
+         url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianSansWeb/GuardianSansWeb-Semibold.svg#Guardian Sans Web-Regular') format('svg');
+    font-weight: bold;
     font-style: normal;
     font-stretch: normal;
 }
