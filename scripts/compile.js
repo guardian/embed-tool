@@ -6,13 +6,11 @@ var deploy = require('./deploy.js');
 var config = require('../scripts/config.json');
 var assets = require('../scripts/assets.js');
 
-var specs =  {
-    'deploy': process.argv.slice(2)[0] == 'true' ? true : false
-};
+var isDeploy = process.argv.slice(2)[0] == 'true';
 
 var path = '.build/';
 var data = {
-    path: specs.deploy === false ? 'http://localhost:' + config.local.port : config.remote.url,
+    path: isDeploy ? config.remote.url : 'http://localhost:' + config.local.port,
     embeds: fs.readdirSync('./src/embeds/')
 }
 
@@ -69,7 +67,7 @@ data.embeds = formattedEmbeds;
 
 assets.html(fs.readFileSync('./src/tool/index.html', 'utf8'), data, 'tools/embed-tool/index.html');
 
-if (specs.deploy) {
+if (isDeploy) {
     fs.emptyDirSync('.deploy');
     fs.copySync(path, '.deploy');
 
