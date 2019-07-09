@@ -22,7 +22,7 @@ fs.mkdirsSync(path);
 
 fs.copySync('./node_modules/handlebars/dist/handlebars.min.js', path + 'embed/from-tool/handlebars.min.js');
 
-var formattedEmbeds = [];
+var formattedEmbeds = {};
 
 data.embeds.forEach(function(embed) {
     var dom = new JSDom(fs.readFileSync('./src/embeds/' + embed, 'utf8'));
@@ -48,6 +48,7 @@ data.embeds.forEach(function(embed) {
     fs.mkdirsSync(embedDest);
     fs.writeFileSync(embedDest + '/index.html', dom.serialize());
 
+    // add additional data
     embedData.name = embedName;
     embedData.displayName = displayName;
     embedData.path = data.path;
@@ -55,13 +56,20 @@ data.embeds.forEach(function(embed) {
     // create tool page
     assets.html(fs.readFileSync('./src/tool/embed.html', 'utf8'), embedData, 'tools/embed-tool/' + embedName + '/index.html');
 
-    formattedEmbeds.push({
+    // add to data object that will build the index
+    if (!formattedEmbeds[embedData.type]) {
+        formattedEmbeds[embedData.type] = [];
+    }
+
+    formattedEmbeds[embedData.type].push({
         name: embedName,
         displayName: displayName
     });
 });
 
 data.embeds = formattedEmbeds;
+
+console.log(data);
 
 assets.html(fs.readFileSync('./src/tool/index.html', 'utf8'), data, 'tools/embed-tool/index.html');
 

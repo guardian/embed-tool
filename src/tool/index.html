@@ -119,6 +119,14 @@
             grid-template-columns: repeat(3, 1fr);
             grid-gap: 20px;
             grid-auto-rows: 1fr;
+
+            border-bottom: 1px solid #fff;
+            padding-bottom: 48px;
+            margin-bottom: 12px;
+        }
+
+        .embed-menu__title {
+            margin-top: 0;
         }
 
         .embed-menu__option {
@@ -139,12 +147,6 @@
             top: 12px;
             left: 12px;
             margin: 0;
-        }
-
-        .old-embeds {
-            border-top: 1px solid #fff;
-            padding-top: 12px;
-            margin-top: 48px;
         }
 
         .old-embeds__title {
@@ -232,12 +234,16 @@
     </header>
 
     <main>
-        <div class='embed-menu'>
-            {{#each embeds}}
-                <a target='_self' class='embed-menu__option' href='{{ path }}/tools/embed-tool/{{ name }}/index.html'>
-                    <h2 class='embed-menu__option-title'>{{ displayName }}</h2>
-                </a>
-            {{/each}}
+        {{#each embeds }}
+            <h2 class='embed-menu__title'>{{ @key }}</h2>
+            <div class='embed-menu'>
+                {{#each @this}}
+                    <a target='_self' class='embed-menu__option' href='{{ path }}/tools/embed-tool/{{ name }}/index.html'>
+                        <h2 class='embed-menu__option-title'>{{ displayName }}</h2>
+                    </a>
+                {{/each}}
+            </div>
+        {{/each}}
         </div>
         <div class='old-embeds'>
             <h2 class='old-embeds__title'>Restore old embeds</h2>
