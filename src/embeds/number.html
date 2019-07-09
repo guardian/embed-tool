@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>Number Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="../handlebars.min.js"></script>
+
+    <script type='application/json'>
+        {
+            "type": "General",
+            "size": "thumbnail",
+            "tip": "Number embeds should be used to emphasise specific stat-lines that are core to the piece",
+            "fields": [
+                {
+                    "name": "Number",
+                    "type": "text",
+                    "default": "20%"
+                },
+
+                {
+                    "name": "Title",
+                    "type": "textarea",
+                    "default": "is a cool number that appears above",
+                    "tip": "This should read as a sentence from the number above"
+                }
+            ]
+        }
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .number {
+            display: block;
+            color: $c-red;
+            font-family: 'Guardian Figures';
+            font-size: 48px;
+            line-height: 1;
+            margin: 0;
+            font-weight: normal;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .number span {
+            font-size: .7em;
+        }
+
+        .title {
+            font-family: 'Guardian Egyptian Web';
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 1.2;
+            margin: -3px 0 0;
+        }
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper'>
+            <h2 class='number'>{{{ formatNumber number }}}</h2>
+            <p class='title'>{{ title }}</p>
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                if (string) {
+                    return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                }
+            });
+
+            Handlebars.registerHelper('formatNumber', function(string) {
+                if (string) {
+                    var matches = string.match(/[^0-9]+/g);
+
+                    matches.forEach(function(match) {
+                        string = string.replace(match, `<span>${match}</span>`);
+                    })
+
+                    return string;
+                }
+            });
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
