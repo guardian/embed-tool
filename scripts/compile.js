@@ -67,6 +67,8 @@ data.embeds = formattedEmbeds;
 
 assets.html(fs.readFileSync('./src/tool/index.html', 'utf8'), data, 'tools/embed-tool/index.html');
 
+fs.copySync('./src/tool/assets/', path + 'tools/embed-tool/assets/');
+
 if (isDeploy) {
     fs.emptyDirSync('.deploy');
     fs.copySync(path, '.deploy');

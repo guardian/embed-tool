@@ -136,17 +136,33 @@
             color: #121212;
             padding-top: 100%;
             cursor: pointer;
+            overflow: hidden;
         }
 
-        .embed-menu__option:hover {
-            background-color: #ddd;
+        .embed-menu__option:hover .embed-menu__option-image {
+            transform: scale(1) rotate(-10deg);
+            filter: grayscale(0);
+            opacity: 1;
         }
 
         .embed-menu__option-title {
             position: absolute;
+            z-index: 2;
             top: 12px;
             left: 12px;
             margin: 0;
+        }
+
+        .embed-menu__option-image {
+            position: absolute;
+            right: -60px;
+            bottom: -60px;
+            width: 100%;
+            overflow: hidden;
+            transform: scale(0.8) rotate(-10deg);
+            opacity: 0.3;
+            filter: grayscale(1);
+            transition: transform 0.2s linear, opacity 0.2s linear, filter 0.2s linear;
         }
 
         .old-embeds__title {
@@ -240,6 +256,7 @@
                 {{#each @this}}
                     <a target='_self' class='embed-menu__option' href='{{ path }}/tools/embed-tool/{{ name }}/index.html'>
                         <h2 class='embed-menu__option-title'>{{ displayName }}</h2>
+                        <img class='embed-menu__option-image' src='{{ path }}/tools/embed-tool/assets/images/{{ name }}.png' />
                     </a>
                 {{/each}}
             </div>
