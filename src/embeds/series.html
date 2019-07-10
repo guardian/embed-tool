@@ -340,7 +340,7 @@
     <script class="template" type="text/x-handlebars-template">
         <div class='wrapper wrapper--{{ handlise vertical }} {{#if opinion-tint}}wrapper--tint{{/if}}'>
             <div class='header'>
-                <a class='title' href='{{ read-more-link }}'>{{ title }}</a>
+                <a class='title' href='{{ validateURL read-more-link }}'>{{ title }}</a>
             </div>
             <div class="content">
                 {{ description }}
@@ -348,25 +348,25 @@
             {{#if links}}
                 <ul class='links {{#if link-4-url}}links--4{{/if}}'>
                     {{#if link-1-url}}
-                    <a target='_parent' href='{{ link-1-url}}?CMP=series_embed_box'><li class='link'>{{ link-1-headline }}</li></a>
+                    <a target='_parent' href='{{ validateURL link-1-url }}?CMP=series_embed_box'><li class='link'>{{ link-1-headline }}</li></a>
                     {{/if}}
 
                     {{#if link-2-url}}
-                    <a target='_parent' href='{{ link-2-url}}?CMP=series_embed_box'><li class='link'>{{ link-2-headline }}</li></a>
+                    <a target='_parent' href='{{ validateURL link-2-url }}?CMP=series_embed_box'><li class='link'>{{ link-2-headline }}</li></a>
                     {{/if}}
 
                     {{#if link-3-url}}
-                    <a target='_parent' href='{{ link-3-url}}?CMP=series_embed_box'><li class='link'>{{ link-3-headline }}</li></a>
+                    <a target='_parent' href='{{ validateURL link-3-url }}?CMP=series_embed_box'><li class='link'>{{ link-3-headline }}</li></a>
                     {{/if}}
                 </ul>
             {{/if}}
 
             {{#if read-more-link}}
-                <a class='button' target='_parent' href='{{ read-more-link }}'>More from this series <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></a>
+                <a class='button' target='_parent' href='{{ validateURL read-more-link }}'>More from this series <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></a>
             {{/if}}
 
             {{#if paid-for-by}}
-                <a class='paid-for' target='_parent' href='{{ paid-for-link }}'>
+                <a class='paid-for' target='_parent' href='{{ validateURL paid-for-link }}'>
                     <h3 class='paid-for__label'>Paid for by</h3>
                     <img class='paid-for__image' src='{{ gridToLink paid-for-logo }}' />
                 </a>
@@ -431,6 +431,14 @@
                     return url + '/' + crop + '/' + size + '.jpg';
                 } else if (url) {
                     return url;
+                }
+            });
+
+            Handlebars.registerHelper('validateURL', function(url) {
+                if (url.startsWith('http')) {
+                    return url;
+                } else {
+                    return 'http://' + url;
                 }
             });
 
