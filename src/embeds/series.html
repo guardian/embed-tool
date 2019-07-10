@@ -15,7 +15,7 @@
         {
             "type": "General",
             "size": "supporting",
-            "tip": "Series embeds should be used to communicate that a piece is part of an ongoing series. The links provided should be to other pieces of guardian content only.",
+            "tip": "Series embeds should be used to communicate that a piece is part of an ongoing series. The links provided should be to other pieces of Guardian content only.",
             "fields": [
                 {
                     "name": "Vertical",
@@ -44,7 +44,37 @@
                     "name": "Read More Link",
                     "type": "text",
                     "default": "https://www.theguardian.com/",
-                    "tip": "Should link to the series front/tag"
+                    "tip": "Should link to the series front/tag. Optional"
+                },
+
+                {
+                    "name": "Paid For By",
+                    "type": "checkbox",
+                    "visibleOn": {
+                        "vertical": "Commercial"
+                    }
+                },
+
+                {
+                    "name": "Paid For Logo",
+                    "type": "text",
+                    "default": "https://media.gutools.co.uk/images/c1fe6eeb5075aa20cf7f192a5c25e34f3ba36d8e?crop=0_53_500_192",
+                    "tip": "Link to a cropped grid image or an S3 hosted image",
+                    "visibleOn": {
+                        "vertical": "Commercial",
+                        "paid-for-by": true
+                    }
+                },
+
+                {
+                    "name": "Paid For Link",
+                    "type": "text",
+                    "default": "http://www.nottheguardian.com",
+                    "tip": "A link to the sponsor's website",
+                    "visibleOn": {
+                        "vertical": "Commercial",
+                        "paid-for-by": true
+                    }
                 },
 
                 {
@@ -250,6 +280,23 @@
             }
         }
 
+        .paid-for {
+            padding-top: 2px;
+            border-top: 1px solid $c-light-grey;
+            display: block;
+        }
+
+        .paid-for__label {
+            margin: 6px 0 3px;
+            color: $c-dark-grey;
+            font-family: 'Guardian Sans Web';
+            font-size: 12px;
+        }
+
+        .paid-for__image {
+            max-width: 140px;
+        }
+
         @mixin colouriseEmbed($vertical, $c-color) {
             .wrapper--#{$vertical} {
                 .title,
@@ -315,7 +362,14 @@
             {{/if}}
 
             {{#if read-more-link}}
-            <a class='button' target='_parent' href='{{ read-more-link }}'>More from this series <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></a>
+                <a class='button' target='_parent' href='{{ read-more-link }}'>More from this series <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></a>
+            {{/if}}
+
+            {{#if paid-for-by}}
+                <a class='paid-for' target='_parent' href='{{ paid-for-link }}'>
+                    <h3 class='paid-for__label'>Paid for by</h3>
+                    <img class='paid-for__image' src='{{ gridToLink paid-for-logo }}' />
+                </a>
             {{/if}}
         </div>
     </script>
@@ -352,6 +406,32 @@
         function init() {
             Handlebars.registerHelper('handlise', function(string) {
                 return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+            });
+
+            Handlebars.registerHelper('gridToLink', function(url) {
+                if (url.includes('gutools.co.uk')) {
+                    var crop = url.split('?crop=')[1];
+                    var cropDimensions = crop.split('_');
+
+                    var cropWidth = cropDimensions[2] - cropDimensions[0];
+                    var cropHeight = cropDimensions[3] - cropDimensions[1];
+
+                    if (cropHeight > cropWidth) {
+                        var ratio = 500 / cropHeight;
+                        size = Math.round(cropWidth * ratio);
+                    } else {
+                        size = 500;
+                    }
+
+                    url = url.replace('gutools.co.uk', 'guim.co.uk');
+                    url = url.replace('http://', 'https://');
+                    url = url.replace('images/', '');
+                    url = url.split('?')[0];
+
+                    return url + '/' + crop + '/' + size + '.jpg';
+                } else if (url) {
+                    return url;
+                }
             });
 
             var source = document.getElementsByClassName('template')[0].innerHTML;
