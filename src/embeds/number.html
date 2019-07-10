@@ -148,9 +148,11 @@
                 if (string) {
                     var matches = string.match(/[^0-9]+/g);
 
-                    matches.forEach(function(match) {
-                        string = string.replace(match, `<span>${match}</span>`);
-                    })
+                    if (matches) {
+                        matches.forEach(function(match) {
+                            string = string.replace(match, `<span>${match}</span>`);
+                        });
+                    }
 
                     return string;
                 }
