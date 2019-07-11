@@ -617,7 +617,7 @@
                 url: $('.export__url').val(),
                 type: $('body').attr('data-displayName'),
                 date: new Date(),
-                title: $('[name=\'title\']').val() || $('[name=\'name\']').val() || $('[name=\'document-title\']').val()
+                title: $('[name=\'title\']').val() || $('[name=\'name\']').val() || $('[name=\'document-title\']').val() || $('[name=\'name-of-publication\']').val()
             });
 
             localStorage.setItem('embedSettings', JSON.stringify(data));
