@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>Author Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="../handlebars.min.js"></script>
+
+    <script type='application/json'>
+        {
+            "type": "General",
+            "size": "thumbnail",
+            "tip": "Number embeds should be used to emphasise specific stat-lines that are core to the piece",
+            "fields": [
+                {
+                    "name": "Vertical",
+                    "type": "select",
+                    "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts", "Commercial"]
+                },
+
+                {
+                    "name": "Name",
+                    "type": "text",
+                    "default": "Sam Morris"
+                },
+
+                {
+                    "name": "Bio",
+                    "type": "textarea",
+                    "default": "A designer who made this tool. Who is most well known for putting a lot of bad filler text in this tool. You should probably replace this with a real description"
+                },
+
+                {
+                    "name": "Headshot",
+                    "type": "text",
+                    "default": "https://uploads.guim.co.uk/2019/04/27/Sam_Morris_Circular_panelist_byline.DO_NOT_USE_FOR_ANY_OTHER_PURPOSE!_(d0d5cb0807a2ed1104d9532016efc74bc994c37d).png",
+                    "tip": "Link to a cropped grid image or an S3 hosted image"
+                },
+
+                {
+                    "name": "Profile Page",
+                    "type": "text",
+                    "default": "https://www.theguardian.com/profile/sam-morris",
+                    "tip": "Optional. Should be a link to a Guardian profile page"
+                }
+            ]
+        }
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .wrapper {
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .headshot {
+            width: 100%;
+            border-radius: 300px;
+            overflow: hidden;
+            background-color: $c-light-grey;
+            margin-bottom: 10px;
+        }
+
+        .headshot__image {
+            width: 100%;
+            display: block;
+        }
+
+        .name {
+            font-family: 'Guardian Egyptian Web';
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 1.2;
+            margin: -3px 0 0;
+
+            .wrapper--news & {
+                color: $c-red;
+
+                &:hover {
+                    color: $c-dark-red;
+                }
+            }
+
+            .wrapper--sport & {
+                color: $c-blue;
+
+                &:hover {
+                    color: $c-dark-blue;
+                }
+            }
+
+            .wrapper--opinion & {
+                color: $c-orange;
+
+                &:hover {
+                    color: $c-dark-orange;
+                }
+            }
+
+            .wrapper--lifestyle & {
+                color: $c-purple;
+
+                &:hover {
+                    color: $c-dark-purple;
+                }
+            }
+
+            .wrapper--arts & {
+                color: $c-brown;
+
+                &:hover {
+                    color: $c-dark-brown;
+                }
+            }
+
+            .wrapper--commercial & {
+                color: $c-teal;
+
+                &:hover {
+                    color: $c-dark-teal;
+                }
+            }
+        }
+
+        .name__link {
+            color: inherit;
+        }
+
+        .bio {
+            font-family: 'Guardian Sans Web';
+            font-size: 14px;
+            line-height: 1.4;
+            color: $c-black;
+            margin: 4px 0 0 0;
+        }
+
+        a.button {
+            position: relative;
+            display: inline-block;
+            font-family: 'Guardian Sans Web';
+            font-size: 14px;
+            color: $c-white;
+            padding: 6px 32px 6px 12px;
+            border-radius: 32px;
+            transition: background 0.4s ease-out;
+            cursor: pointer;
+            margin: 6px 0;
+
+            &:hover {
+                text-decoration: none;
+                background: $c-off-yellow;
+
+                svg {
+                    transform: translateX(2px);
+                }
+            }
+
+            .wrapper--news & {
+                background-color: $c-red;
+
+                &:hover {
+                    background-color: $c-dark-red;
+                }
+            }
+
+            .wrapper--sport & {
+                background-color: $c-blue;
+
+                &:hover {
+                    background-color: $c-dark-blue;
+                }
+            }
+
+            .wrapper--opinion & {
+                background-color: $c-orange;
+
+                &:hover {
+                    background-color: $c-dark-orange;
+                }
+            }
+
+            .wrapper--lifestyle & {
+                background-color: $c-purple;
+
+                &:hover {
+                    background-color: $c-dark-purple;
+                }
+            }
+
+            .wrapper--arts & {
+                background-color: $c-brown;
+
+                &:hover {
+                    background-color: $c-dark-brown;
+                }
+            }
+
+            .wrapper--commercial & {
+                background-color: $c-teal;
+
+                &:hover {
+                    background-color: $c-dark-teal;
+                }
+            }
+        }
+
+        .button svg {
+            position: absolute;
+            right: 4px;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            fill: $c-white;
+            transition: transform 0.4s ease-out;
+        }
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper wrapper--{{ handlise vertical }}'>
+            {{#if headshot}}
+                <div class='headshot'>
+                    <img src='{{ gridToLink headshot }}' class='headshot__image' />
+                </div>
+            {{/if}}
+            <h1 class='name'>
+                {{#if profile-page}}
+                    <a class='name__link' target='_parent' href='{{ profile-page }}'>{{ name }}</a>
+                {{ else }}
+                    {{ name }}
+                {{/if}}
+            </h1>
+            <p class='bio'>{{ bio }}</p>
+            {{#if profile-page}}
+                <a class='button' target='_parent' href='{{ validateURL profile-page }}'>Read more <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></a>
+            {{/if}}
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                if (string) {
+                    return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                }
+            });
+
+            Handlebars.registerHelper('gridToLink', function(url) {
+                if (url.includes('gutools.co.uk')) {
+                    var crop = url.split('?crop=')[1];
+                    var cropDimensions = crop.split('_');
+
+                    var cropWidth = cropDimensions[2] - cropDimensions[0];
+                    var cropHeight = cropDimensions[3] - cropDimensions[1];
+
+                    if (cropHeight > cropWidth) {
+                        var ratio = 500 / cropHeight;
+                        size = Math.round(cropWidth * ratio);
+                    } else {
+                        size = 500;
+                    }
+
+                    url = url.replace('gutools.co.uk', 'guim.co.uk');
+                    url = url.replace('http://', 'https://');
+                    url = url.replace('images/', '');
+                    url = url.split('?')[0];
+
+                    return url + '/' + crop + '/' + size + '.jpg';
+                } else if (url) {
+                    return url;
+                }
+            });
+
+            Handlebars.registerHelper('validateURL', function(url) {
+                if (url.startsWith('http')) {
+                    return url;
+                } else {
+                    return 'http://' + url;
+                }
+            });
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
