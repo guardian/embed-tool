@@ -288,18 +288,21 @@
             });
 
             Handlebars.registerHelper('gridToLink', function(url) {
-                if (url.includes('gutools.co.uk')) {
+                if (url && url.includes('gutools.co.uk')) {
                     var crop = url.split('?crop=')[1];
                     var cropDimensions = crop.split('_');
+                    var cropWidth = cropDimensions[2];
+                    var cropHeight = cropDimensions[3];
 
-                    var cropWidth = cropDimensions[2] - cropDimensions[0];
-                    var cropHeight = cropDimensions[3] - cropDimensions[1];
-
-                    if (cropHeight > cropWidth) {
-                        var ratio = 500 / cropHeight;
-                        size = Math.round(cropWidth * ratio);
+                    if (cropWidth >= 500) {
+                        if (cropHeight > cropWidth) {
+                            var ratio = 500 / cropHeight;
+                            size = Math.round(cropWidth * ratio);
+                        } else {
+                            size = 500;
+                        }
                     } else {
-                        size = 500;
+                        size = cropWidth;
                     }
 
                     url = url.replace('gutools.co.uk', 'guim.co.uk');

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>Picture List Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="../handlebars.min.js"></script>
+
+    <script type='application/json'>
+        {
+            "type": "General",
+            "size": "supporting",
+            "tip": "Numbered lists can be used to represent any numerical based list. Either a countdown/countdown or representing a table of data where the number is the primary piece of information",
+            "fields": [
+                {
+                    "name": "Title",
+                    "type": "text",
+                    "default": "Something that explains the point of the table",
+                    "tip": "Try to avoid literal titles like 'A table of data'"
+                },
+
+                {
+                    "name": "Standfirst",
+                    "type": "text",
+                    "default": "Used to add a little more context, if needed, to the table. This can be more functional than the title",
+                    "tip": "Optional"
+                },
+
+                {
+                    "name": "Image 1",
+                    "type": "text",
+                    "default": "https://media.gutools.co.uk/images/237da27b7203e9b53060e31ff5b2be0e8f0441d1?crop=1981_82_629_629",
+                    "tip": "Link to a cropped grid image or an S3 hosted image"
+                },
+
+                {
+                    "name": "Field 1",
+                    "type": "text",
+                    "default": "Harry Kane"
+                },
+
+                {
+                    "name": "Image 2",
+                    "type": "text",
+                    "default": "https://media.gutools.co.uk/images/f0d6fb1b45395fac624c3fe6fe9b54a80af1a38e?crop=1869_231_1582_1582",
+                    "tip": "Link to a cropped grid image or an S3 hosted image"
+                },
+
+                {
+                    "name": "Field 2",
+                    "type": "text",
+                    "default": "Son Heung-min"
+                },
+
+                {
+                    "name": "Image 3",
+                    "type": "text",
+                    "default": "https://media.gutools.co.uk/images/7827348185750aa3e30892b90b68ea9643d753cc?crop=676_205_428_428",
+                    "tip": "Link to a cropped grid image or an S3 hosted image"
+                },
+
+                {
+                    "name": "Field 3",
+                    "type": "text",
+                    "default": "Lucas Moura"
+                },
+
+                {
+                    "name": "Image 4",
+                    "type": "text",
+                    "default": "https://media.gutools.co.uk/images/0504fef04cbf15101f26ffb28b82f3bb8e5591a3?crop=1255_79_1056_1056",
+                    "tip": "Link to a cropped grid image or an S3 hosted image"
+                },
+
+                {
+                    "name": "Field 4",
+                    "type": "text",
+                    "default": "Christian Eriksen"
+                },
+
+                {
+                    "name": "Image 5",
+                    "type": "text",
+                    "default": "",
+                    "tip": "Link to a cropped grid image or an S3 hosted image"
+                },
+
+                {
+                    "name": "Field 5",
+                    "type": "text",
+                    "default": ""
+                },
+
+                {
+                    "name": "Image 6",
+                    "type": "text",
+                    "default": "",
+                    "tip": "Link to a cropped grid image or an S3 hosted image"
+                },
+
+                {
+                    "name": "Field 6",
+                    "type": "text",
+                    "default": ""
+                },
+
+                {
+                    "name": "Image 7",
+                    "type": "text",
+                    "default": "",
+                    "tip": "Link to a cropped grid image or an S3 hosted image"
+                },
+
+                {
+                    "name": "Field 7",
+                    "type": "text",
+                    "default": ""
+                },
+
+                {
+                    "name": "Image 8",
+                    "type": "text",
+                    "default": "",
+                    "tip": "Link to a cropped grid image or an S3 hosted image"
+                },
+
+                {
+                    "name": "Field 8",
+                    "type": "text",
+                    "default": ""
+                }
+            ]
+        }
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .wrapper {
+            -webkit-font-smoothing: antialiased;
+            border-top: 1px solid $c-light-grey;
+            border-bottom: 1px solid $c-light-grey;
+            background-color: $c-white;
+        }
+
+        .title {
+            font-family: 'Guardian Egyptian Web';
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 1.2;
+            margin: 3px 0 0;
+        }
+
+        .standfirst {
+            font-family: 'Guardian Sans Web';
+            font-size: 14px;
+            line-height: 1.2;
+            margin: 3px 0 0 0;
+            color: $c-dark-grey;
+        }
+
+        .table__row {
+            display: flex;
+            border-top: 1px solid $c-light-grey;
+            padding: 6px 0;
+            align-items: center;
+        }
+
+        .table__label {
+            font-family: 'Guardian Sans Web';
+            font-size: 16px;
+            line-height: 1.2;
+            display: block;
+            margin: 0;
+        }
+
+        .table__image-crop {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            border-radius: 48px;
+            margin-right: 10px;
+            background-color: $c-light-grey;
+            overflow: hidden;
+        }
+
+        .table__image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper wrapper--{{ handlise vertical }}'>
+            <div class='header'>
+                <h1 class='title'>{{ title }}</h1>
+                <p class='standfirst'>{{ standfirst }}<p>
+            </div>
+            <div class='table'>
+                {{#each rows}}
+                    <div class='table__row'>
+                        <div class='table__image-crop'>
+                            <img class='table__image' src='{{{ gridToLink image }}}' />
+                        </div>
+                        <p class='table__label'>{{ title }}</p>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            query_string.rows = [];
+
+            for (var i = 0; 8 >= i; i++) {
+                if (query_string['field-' + i] && query_string['image-' + i]) {
+                    query_string.rows.push({
+                        title: query_string['field-' + i],
+                        image: query_string['image-' + i]
+                    });
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                if (string) {
+                    return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                }
+            });
+
+            Handlebars.registerHelper('gridToLink', function(url) {
+                if (url && url.includes('gutools.co.uk')) {
+                    var crop = url.split('?crop=')[1];
+                    var cropDimensions = crop.split('_');
+                    var cropWidth = cropDimensions[2];
+                    var cropHeight = cropDimensions[3];
+
+                    if (cropWidth >= 500) {
+                        if (cropHeight > cropWidth) {
+                            var ratio = 500 / cropHeight;
+                            size = Math.round(cropWidth * ratio);
+                        } else {
+                            size = 500;
+                        }
+                    } else {
+                        size = cropWidth;
+                    }
+
+                    url = url.replace('gutools.co.uk', 'guim.co.uk');
+                    url = url.replace('http://', 'https://');
+                    url = url.replace('images/', '');
+                    url = url.split('?')[0];
+
+                    return url + '/' + crop + '/' + size + '.jpg';
+                } else if (url) {
+                    return url;
+                }
+            });
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
