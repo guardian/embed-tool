@@ -157,7 +157,6 @@
         }
 
         .options__main-tip {
-            position: relative;
             font-family: 'Guardian Agate Sans';
             font-size: 13px;
             font-weight: bold;
@@ -165,14 +164,19 @@
             color: #212121;
             padding-bottom: 16px;
             padding-top: 8px;
+            max-width: 480px;
         }
 
-        .options__main-tip:after {
+        .options__options {
+            position: relative;
+        }
+
+        .options__options:before {
             content: '';
             position: absolute;
             width: calc(100% + 40px);
             left: -20px;
-            bottom: 0;
+            top: 0;
             height: 2px;
             background-color: #fff;
         }
@@ -400,48 +404,50 @@
     <main>
         <div class='options'>
             <div class='options__main-tip'>
-                {{ tip }}<br />
+                {{ tip }}<br /><br />
                 Suggested width: {{ size }}
             </div>
-            {{#each fields}}
-                <div class='option {{#if visibleOn}}option--visible-on{{/if}}' {{#if visibleOn}}data-visible-on='{{#each visibleOn}}{{@key}}:{{ @this }} && {{/each}}'{{/if}}>
-                    <h2 class='options__label'>{{ name }}</h2>
+            <div class='options__options'>
+                {{#each fields}}
+                    <div class='option {{#if visibleOn}}option--visible-on{{/if}}' {{#if visibleOn}}data-visible-on='{{#each visibleOn}}{{@key}}:{{ @this }} && {{/each}}'{{/if}}>
+                        <h2 class='options__label'>{{ name }}</h2>
 
-                    {{#if tip}}
-                        <h3 class='options__tip'>{{ tip }}</h3>
-                    {{/if}}
+                        {{#if tip}}
+                            <h3 class='options__tip'>{{ tip }}</h3>
+                        {{/if}}
 
-                    {{#switch type}}
-                        {{#case 'text'}}
-                            <input class='options__input' type='text' value='{{ default }}' name='{{ handlise name }}'>
-                        {{/case}}
+                        {{#switch type}}
+                            {{#case 'text'}}
+                                <input class='options__input' type='text' value='{{ default }}' name='{{ handlise name }}'>
+                            {{/case}}
 
-                        {{#case 'number'}}
-                            <input class='options__input' type='number' value='{{ default }}' name='{{ handlise name }}'>
-                        {{/case}}
+                            {{#case 'number'}}
+                                <input class='options__input' type='number' value='{{ default }}' name='{{ handlise name }}'>
+                            {{/case}}
 
-                        {{#case 'checkbox'}}
-                            <div class='options__checkbox is-off' data-name='{{ handlise name }}'>
-                                <span class='options__checkbox-switch options__checkbox-switch--off'>Off</span>
-                                <span class='options__checkbox-switch options__checkbox-switch--on'>On</span>
-                            </div>
-                            <input class='options__input options__input--checkbox' type='checkbox' name='{{ handlise name }}'>
-                        {{/case}}
+                            {{#case 'checkbox'}}
+                                <div class='options__checkbox is-off' data-name='{{ handlise name }}'>
+                                    <span class='options__checkbox-switch options__checkbox-switch--off'>Off</span>
+                                    <span class='options__checkbox-switch options__checkbox-switch--on'>On</span>
+                                </div>
+                                <input class='options__input options__input--checkbox' type='checkbox' name='{{ handlise name }}'>
+                            {{/case}}
 
-                        {{#case 'textarea'}}
-                            <textarea class='options__input options__input--textarea' name='{{ handlise name }}'>{{ default }}</textarea>
-                        {{/case}}
+                            {{#case 'textarea'}}
+                                <textarea class='options__input options__input--textarea' name='{{ handlise name }}'>{{ default }}</textarea>
+                            {{/case}}
 
-                        {{#case 'select'}}
-                            <select name='{{ handlise name }}' class='options__input'>
-                                {{#each options}}
-                                <option value='{{ this }}'>{{ this }}</option>
-                                {{/each}}
-                            </select>
-                        {{/case}}
-                    {{/switch}}
-                </div>
-            {{/each}}
+                            {{#case 'select'}}
+                                <select name='{{ handlise name }}' class='options__input'>
+                                    {{#each options}}
+                                    <option value='{{ this }}'>{{ this }}</option>
+                                    {{/each}}
+                                </select>
+                            {{/case}}
+                        {{/switch}}
+                    </div>
+                {{/each}}
+            </div>
         </div>
 
         <div class='preview'>
