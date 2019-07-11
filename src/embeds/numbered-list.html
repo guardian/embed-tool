@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>Numbered List Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="../handlebars.min.js"></script>
+
+    <script type='application/json'>
+        {
+            "type": "General",
+            "size": "supporting",
+            "tip": "Numbered lists can be used to represent any numerical based list. Either a countdown/countdown or representing a table of data where the number is the primary piece of information",
+            "fields": [
+                {
+                    "name": "Vertical",
+                    "type": "select",
+                    "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts", "Commercial"]
+                },
+
+                {
+                    "name": "Title",
+                    "type": "text",
+                    "default": "Something that explains the point of the table",
+                    "tip": "Try to avoid literal titles like 'A table of data'"
+                },
+
+                {
+                    "name": "Standfirst",
+                    "type": "text",
+                    "default": "Used to add a little more context, if needed, to the table. This can be more functional than the title",
+                    "tip": "Optional"
+                },
+
+                {
+                    "name": "Number 1",
+                    "type": "text",
+                    "default": "24"
+                },
+
+                {
+                    "name": "Field 1",
+                    "type": "text",
+                    "default": "Harry Kane"
+                },
+
+                {
+                    "name": "Number 2",
+                    "type": "text",
+                    "default": "20"
+                },
+
+                {
+                    "name": "Field 2",
+                    "type": "text",
+                    "default": "Son Heung-min"
+                },
+
+                {
+                    "name": "Number 3",
+                    "type": "text",
+                    "default": "15"
+                },
+
+                {
+                    "name": "Field 3",
+                    "type": "text",
+                    "default": "Lucas Moura"
+                },
+
+                {
+                    "name": "Number 4",
+                    "type": "text",
+                    "default": "10"
+                },
+
+                {
+                    "name": "Field 4",
+                    "type": "text",
+                    "default": "Christian Eriksen"
+                },
+
+                {
+                    "name": "Number 5",
+                    "type": "text",
+                    "default": "5-10"
+                },
+
+                {
+                    "name": "Field 5",
+                    "type": "text",
+                    "default": "Fernando Llorente, Dele Alli, Erik Lamela"
+                },
+
+                {
+                    "name": "Number 6",
+                    "type": "text",
+                    "default": ""
+                },
+
+                {
+                    "name": "Field 6",
+                    "type": "text",
+                    "default": ""
+                },
+
+                {
+                    "name": "Number 7",
+                    "type": "text",
+                    "default": ""
+                },
+
+                {
+                    "name": "Field 7",
+                    "type": "text",
+                    "default": ""
+                },
+
+                {
+                    "name": "Number 8",
+                    "type": "text",
+                    "default": ""
+                },
+
+                {
+                    "name": "Field 8",
+                    "type": "text",
+                    "default": ""
+                }
+            ]
+        }
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .wrapper {
+            -webkit-font-smoothing: antialiased;
+            border-top: 1px solid $c-light-grey;
+            border-bottom: 1px solid $c-light-grey;
+            background-color: $c-white;
+        }
+
+        .title {
+            font-family: 'Guardian Egyptian Web';
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 1.2;
+            margin: 3px 0 0;
+        }
+
+        .standfirst {
+            font-family: 'Guardian Sans Web';
+            font-size: 14px;
+            line-height: 1.2;
+            margin: 3px 0 0 0;
+            color: $c-dark-grey;
+        }
+
+        .table__row {
+            display: flex;
+            border-top: 1px solid $c-light-grey;
+        }
+
+        .table__label {
+            font-family: 'Guardian Sans Web';
+            font-size: 14px;
+            line-height: 1.2;
+            border-left: 1px solid $c-light-grey;
+            display: block;
+            margin: 0;
+            padding: 4px 0 0 6px;
+        }
+
+        .table__number {
+            display: block;
+            font-family: 'Guardian Figures';
+            font-size: 32px;
+            line-height: 1;
+            margin: 0;
+            font-weight: normal;
+            width: 2.4em;
+            padding-top: 4px;
+            padding-bottom: 8px;
+
+            .wrapper--news & {
+                color: $c-red;
+            }
+
+            .wrapper--sport & {
+                color: $c-blue;
+            }
+
+            .wrapper--opinion & {
+                color: $c-orange;
+            }
+
+            .wrapper--lifestyle & {
+                color: $c-purple;
+            }
+
+            .wrapper--arts & {
+                color: $c-brown;
+            }
+
+            .wrapper--commercial & {
+                color: $c-teal;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper wrapper--{{ handlise vertical }}'>
+            <div class='header'>
+                <h1 class='title'>{{ title }}</h1>
+                <p class='standfirst'>{{ standfirst }}<p>
+            </div>
+            <div class='table'>
+                {{#each rows}}
+                    <div class='table__row'>
+                        <h2 class='table__number'>{{{ number }}}</h2>
+                        <p class='table__label'>{{ title }}</p>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            query_string.rows = [];
+
+            for (var i = 0; 8 >= i; i++) {
+                if (query_string['field-' + i] && query_string['number-' + i]) {
+                    query_string.rows.push({
+                        title: query_string['field-' + i],
+                        number: query_string['number-' + i]
+                    });
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                if (string) {
+                    return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                }
+            });
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
