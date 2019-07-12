@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>Censored Image Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="../handlebars.min.js"></script>
+
+    <script type='application/json'>
+        {
+            "type": "General",
+            "size": "inline",
+            "tip": "The Censored Image embed should be used when an image is of sensitive subject matter",
+            "fields": [
+                {
+                    "name": "Vertical",
+                    "type": "select",
+                    "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts", "Commercial"]
+                },
+
+                {
+                    "name": "Label",
+                    "type": "text",
+                    "default": "Warning: Some viewers may find the following photo distressing"
+                },
+
+                {
+                    "name": "Image",
+                    "type": "text",
+                    "default": "https://media.gutools.co.uk/images/c48cb61343f3f313510bf03d313663b1b26d59de?crop=0_0_5168_3100",
+                    "tip": "Link to a cropped grid image"
+                }
+            ]
+        }
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .wrapper {
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            background-color: $c-white;
+        }
+
+        .gate {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(12, 12, 12, 0.97);
+            transition: opacity 0.3s linear;
+
+            &.is-open {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+
+        .gate__label {
+            font-family: 'Guardian Sans Web';
+            font-size: 16px;
+            color: $c-white;
+            margin: 0 0 10px 0;
+        }
+
+        .gate__content {
+            position: absolute;
+            width: 80%;
+            height: fit-content;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            text-align: center;
+        }
+
+        .button {
+            position: relative;
+            display: inline-block;
+            font-family: 'Guardian Sans Web';
+            font-size: 14px;
+            color: $c-white;
+            padding: 6px 32px 6px 12px;
+            border-radius: 32px;
+            transition: background 0.4s ease-out;
+            cursor: pointer;
+            margin: 2px auto;
+
+            &:hover {
+                text-decoration: none;
+                background: $c-off-yellow;
+
+                svg {
+                    transform: translateX(2px);
+                }
+            }
+
+            .wrapper--news & {
+                background-color: $c-red;
+
+                &:hover {
+                    background-color: $c-dark-red;
+                }
+            }
+
+            .wrapper--sport & {
+                background-color: $c-blue;
+
+                &:hover {
+                    background-color: $c-dark-blue;
+                }
+            }
+
+            .wrapper--opinion & {
+                background-color: $c-orange;
+
+                &:hover {
+                    background-color: $c-dark-orange;
+                }
+            }
+
+            .wrapper--lifestyle & {
+                background-color: $c-purple;
+
+                &:hover {
+                    background-color: $c-dark-purple;
+                }
+            }
+
+            .wrapper--arts & {
+                background-color: $c-brown;
+
+                &:hover {
+                    background-color: $c-dark-brown;
+                }
+            }
+
+            .wrapper--commercial & {
+                background-color: $c-teal;
+
+                &:hover {
+                    background-color: $c-dark-teal;
+                }
+            }
+        }
+
+        .button svg {
+            position: absolute;
+            right: 4px;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            fill: $c-white;
+            transition: transform 0.4s ease-out;
+        }
+
+        .image {
+            width: 100%;
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper wrapper--{{ handlise vertical }}'>
+            <div class='gate'>
+                <div class='gate__content'>
+                    <h2 class='gate__label'>{{ label }}</h2>
+                    <div class='button' target='_parent'>I understand <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></div>
+                </div>
+            </div>
+            <img src='{{ gridToLink image }}' class='image' />
+
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                if (string) {
+                    return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                }
+            });
+
+            Handlebars.registerHelper('layout', function(image1, image2) {
+                var ratios = [];
+
+                image1 = image1.split('?crop=')[1].split('_');
+                image2 = image2.split('?crop=')[1].split('_');
+
+                ratios.push(image1[2] > image1[3] ? 'landscape' : 'portrait');
+                ratios.push(image2[2] > image2[3] ? 'landscape' : 'portrait');
+
+                if (ratios[0] === ratios[1]) {
+                    return 'equal'
+                } else if (ratios[0] === 'landscape') {
+                    return 'left-wide'
+                } else if (ratios[1] === 'landscape') {
+                    return 'right-wide'
+                }
+            });
+
+            Handlebars.registerHelper('gridToLink', function(url) {
+                if (url && url.includes('gutools.co.uk')) {
+                    var crop = url.split('?crop=')[1];
+                    var cropDimensions = crop.split('_');
+                    var cropWidth = cropDimensions[2];
+                    var cropHeight = cropDimensions[3];
+
+                    if (cropWidth >= 500) {
+                        if (cropHeight > cropWidth) {
+                            var ratio = 500 / cropHeight;
+                            size = Math.round(cropWidth * ratio);
+                        } else {
+                            size = 500;
+                        }
+                    } else {
+                        size = cropWidth;
+                    }
+
+                    url = url.replace('gutools.co.uk', 'guim.co.uk');
+                    url = url.replace('http://', 'https://');
+                    url = url.replace('images/', '');
+                    url = url.split('?')[0];
+
+                    return url + '/' + crop + '/' + size + '.jpg';
+                } else if (url) {
+                    return url;
+                }
+            });
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+
+            document.getElementsByClassName('button')[0].addEventListener('click', function() {
+                document.getElementsByClassName('gate')[0].classList.add('is-open');
+            });
+        }
+
+        init();
+    </script>
+</body>
