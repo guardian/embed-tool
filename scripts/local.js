@@ -9,7 +9,7 @@ var config = require('../scripts/config.json');
 watch('src', function(file) {
     var fileExt = file.substring(file.lastIndexOf('.') + 1);
 
-    if (fileExt === 'html' || fileExt === 'svg' || fileExt === 'json') {
+    if (fileExt === 'html' || fileExt === 'svg' || fileExt === 'json' || fileExt === 'png') {
         console.log('updating html');
         cmd.get('npm run compile -- local preview html', function(data) { console.log(data); });
     } else if (fileExt === 'scss') {
