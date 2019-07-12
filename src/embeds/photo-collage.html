@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>Photo Collage Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="../handlebars.min.js"></script>
+
+    <script type='application/json'>
+        {
+            "type": "General",
+            "size": "immersive",
+            "tip": "Photo collages allow you to position two images next to each other. Layout adapts if you provide a mix of landscape and portrait images",
+            "fields": [
+                {
+                    "name": "Vertical",
+                    "type": "select",
+                    "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts", "Commercial"]
+                },
+
+                {
+                    "name": "Left Image",
+                    "type": "text",
+                    "default": "https://media.gutools.co.uk/images/a23623d06702d910641d42a8eaecf4dcd1c48fd8?crop=0_76_5760_3456",
+                    "tip": "Link to a cropped grid image"
+                },
+
+                {
+                    "name": "Left Caption",
+                    "type": "text",
+                    "default": "A short little caption. Source: Some Photographer for The Guardian",
+                    "tip": "Keep short so it works across all breakpoints"
+                },
+
+                {
+                    "name": "Right Image",
+                    "type": "text",
+                    "default": "https://media.gutools.co.uk/images/1a56a342bf7ae8e2c238ec3ffe923c4e5a1822af?crop=0_550_8256_4954",
+                    "tip": "Link to a cropped grid image"
+                },
+
+                {
+                    "name": "Right Caption",
+                    "type": "text",
+                    "default": "A short little caption. Source: Some Photographer for The Guardian",
+                    "tip": "Keep short so it works across all breakpoints"
+                }
+            ]
+        }
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .wrapper {
+            -webkit-font-smoothing: antialiased;
+            background-color: $c-white;
+        }
+
+        .photos {
+            @include mq(620px) {
+                align-items: start;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            @include mq(740px) {
+                width: 740px;
+            }
+
+            @include mq(780px) {
+                width: 780px;
+            }
+
+            @include mq(800px) {
+                width: 800px;
+            }
+
+            @include mq(860px) {
+                width: 860px;
+            }
+
+            @include mq(880px) {
+                width: 880px;
+            }
+
+            @include mq(990px) {
+                width: 990px;
+            }
+
+            @include mq(1140px) {
+                width: 1140px;
+            }
+
+            @include mq(1300px) {
+                width: 1300px;
+            }
+        }
+
+        .photo {
+            @include mq($until: 620px) {
+                margin-bottom: 20px;
+            }
+        }
+
+        .photo__image {
+            width: 100%;
+        }
+
+        .photo__caption {
+            position: relative;
+            font-family: 'Guardian Sans Web';
+            font-size: 14px;
+            line-height: 1.3;
+            margin: 3px 0;
+            text-indent: 1em;
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                margin-top: 3px;
+                border-left: transparent .4em solid;
+                border-right: transparent .4em solid;
+                border-bottom: $c-black 0.7em solid;
+
+                .wrapper--news & {
+                    border-bottom-color: $c-red;
+                }
+
+                .wrapper--sport & {
+                    border-bottom-color: $c-blue;
+                }
+
+                .wrapper--opinion & {
+                    border-bottom-color: $c-orange;
+                }
+
+                .wrapper--lifestyle & {
+                    border-bottom-color: $c-purple;
+                }
+
+                .wrapper--arts & {
+                    border-bottom-color: $c-brown;
+                }
+
+                .wrapper--commercial & {
+                    border-bottom-color: $c-teal;
+                }
+            }
+        }
+
+        .photos--equal {
+            @include mq(620px) {
+                display: flex;
+
+                .photo {
+                    width: calc(50% - 10px);
+                }
+            }
+        }
+
+        .photos--left-wide {
+            @include mq(740px) {
+                display: flex;
+                position: relative;
+
+                .photo--left {
+                    width: 480px;
+                    margin-right: 20px;
+
+                    .photo__caption {
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+
+                        &:before {
+                            transform: rotate(-90deg);
+                        }
+                    }
+                }
+
+                .photo--right,
+                .photo__caption {
+                    width: 240px;
+                }
+            }
+
+            @include mq(780px) {
+                .photo--left {
+                    width: 540px;
+                }
+
+                .photo--right,
+                .photo__caption {
+                    width: 220px;
+                }
+            }
+
+            @include mq(800px) {
+                .photo--left {
+                    width: 560px;
+                }
+
+                .photo--right {
+                    width: 220px;
+                }
+            }
+
+            @include mq(860px) {
+                .photo--left {
+                    width: 640px;
+                }
+
+                .photo--right {
+                    width: 220px;
+                }
+            }
+
+            @include mq(880px) {
+                .photo--left {
+                    width: 620px;
+                }
+
+                .photo--right,
+                .photo__caption {
+                    width: 240px;
+                }
+            }
+
+            @include mq(990px) {
+                .photo--left {
+                    width: 640px;
+                }
+
+                .photo--right,
+                .photo__caption {
+                    width: 320px;
+                }
+            }
+
+            @include mq(1140px) {
+                .photo--left {
+                    width: 800px;
+                }
+
+                .photo--right {
+                    width: 320px;
+                }
+            }
+
+            @include mq(1300px) {
+                .photo--left {
+                    width: 880px;
+                }
+
+                .photo--right,
+                .photo__caption {
+                    width: 400px;
+                }
+            }
+        }
+
+        .photos--right-wide {
+            @include mq(740px) {
+                display: flex;
+                position: relative;
+
+                .photo--right {
+                    width: 480px;
+                    margin-left: 20px;
+
+                    .photo__caption {
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+
+                        &:before {
+                            transform: rotate(90deg);
+                        }
+                    }
+                }
+
+                .photo--left,
+                .photo__caption {
+                    width: 240px;
+                }
+            }
+
+            @include mq(780px) {
+                .photo--right {
+                    width: 540px;
+                }
+
+                .photo--left,
+                .photo__caption {
+                    width: 220px;
+                }
+            }
+
+            @include mq(800px) {
+                .photo--right {
+                    width: 560px;
+                }
+
+                .photo--left {
+                    width: 220px;
+                }
+            }
+
+            @include mq(860px) {
+                .photo--right {
+                    width: 640px;
+                }
+
+                .photo--left {
+                    width: 220px;
+                }
+            }
+
+            @include mq(880px) {
+                .photo--right {
+                    width: 620px;
+                }
+
+                .photo--left,
+                .photo__caption {
+                    width: 240px;
+                }
+            }
+
+            @include mq(990px) {
+                .photo--right {
+                    width: 640px;
+                }
+
+                .photo--left,
+                .photo__caption {
+                    width: 320px;
+                }
+            }
+
+            @include mq(1140px) {
+                .photo--right {
+                    width: 800px;
+                }
+
+                .photo--left {
+                    width: 320px;
+                }
+            }
+
+            @include mq(1300px) {
+                .photo--right {
+                    width: 880px;
+                }
+
+                .photo--left,
+                .photo__caption {
+                    width: 400px;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper wrapper--{{ handlise vertical }}'>
+            <div class='photos photos--{{ layout left-image right-image }}'>
+                <div class='photo photo--left'>
+                    <img src='{{ gridToLink left-image }}' class='photo__image' />
+                    <p class='photo__caption'>{{ left-caption }}</p>
+                </div>
+                <div class='photo photo--right'>
+                    <img src='{{ gridToLink right-image }}' class='photo__image' />
+                    <p class='photo__caption'>{{ right-caption }}</p>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                if (string) {
+                    return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                }
+            });
+
+            Handlebars.registerHelper('layout', function(image1, image2) {
+                var ratios = [];
+
+                image1 = image1.split('?crop=')[1].split('_');
+                image2 = image2.split('?crop=')[1].split('_');
+
+                ratios.push(image1[2] > image1[3] ? 'landscape' : 'portrait');
+                ratios.push(image2[2] > image2[3] ? 'landscape' : 'portrait');
+
+                if (ratios[0] === ratios[1]) {
+                    return 'equal'
+                } else if (ratios[0] === 'landscape') {
+                    return 'left-wide'
+                } else if (ratios[1] === 'landscape') {
+                    return 'right-wide'
+                }
+            });
+
+            Handlebars.registerHelper('gridToLink', function(url) {
+                if (url && url.includes('gutools.co.uk')) {
+                    var crop = url.split('?crop=')[1];
+                    var cropDimensions = crop.split('_');
+                    var cropWidth = cropDimensions[2];
+                    var cropHeight = cropDimensions[3];
+
+                    if (cropWidth >= 500) {
+                        if (cropHeight > cropWidth) {
+                            var ratio = 500 / cropHeight;
+                            size = Math.round(cropWidth * ratio);
+                        } else {
+                            size = 500;
+                        }
+                    } else {
+                        size = cropWidth;
+                    }
+
+                    url = url.replace('gutools.co.uk', 'guim.co.uk');
+                    url = url.replace('http://', 'https://');
+                    url = url.replace('images/', '');
+                    url = url.split('?')[0];
+
+                    return url + '/' + crop + '/' + size + '.jpg';
+                } else if (url) {
+                    return url;
+                }
+            });
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
