@@ -623,7 +623,7 @@
                 url: $('.export__url').val(),
                 type: $('body').attr('data-displayName'),
                 date: new Date(),
-                title: $('[name=\'title\']').val() || $('[name=\'name\']').val() || $('[name=\'document-title\']').val() || $('[name=\'name-of-publication\']').val()
+                title: $('[name=\'title\']').val() || $('[name=\'name\']').val() || $('[name=\'document-title\']').val() || $('[name=\'name-of-publication\']').val() || $('[name=\'left-caption\']').val() || $('[name=\'label\']').val() || $('[name=\'title-a\']').val() + ' v ' + $('[name=\'title-b\']').val()
             });
 
             localStorage.setItem('embedSettings', JSON.stringify(data));
