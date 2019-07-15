@@ -10,7 +10,7 @@ module.exports = function deploy() {
         {
             files: 'embed/**/*',
             headers: {
-                // change this
+                // change this to 604800
                 CacheControl: 'max-age=20'
             }
         }
