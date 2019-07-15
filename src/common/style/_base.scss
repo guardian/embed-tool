@@ -3,6 +3,7 @@ html {
     margin: 0;
     font-family: 'Guardian Text Sans Web';
     -webkit-font-smoothing: antialiased;
+    background: transparent;
 }
 
 * {
@@ -11,8 +12,4 @@ html {
 
 a {
     text-decoration: none;
-}
-
-body {
-    background-color: $c-white;
 }
