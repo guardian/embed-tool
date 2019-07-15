@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>Generic Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="../handlebars.min.js"></script>
+
+    <script type='application/json'>
+        {
+            "type": "General",
+            "size": "supporting",
+            "tip": "Generic embeds should be used to communicate blocks of information that don't belong in the main body and aren't covered by the other embeds in this tool",
+            "fields": [
+                {
+                    "name": "Vertical",
+                    "type": "select",
+                    "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts", "Commercial"]
+                },
+
+                {
+                    "name": "Opinion Tint",
+                    "type": "checkbox"
+                },
+
+                {
+                    "name": "Title",
+                    "type": "text",
+                    "default": "Title of this box"
+                },
+
+                {
+                    "name": "Description",
+                    "type": "textarea",
+                    "tip": "Basic HTML like <strong> and <i> are supported",
+                    "default": "I am the content in this box. I can be <strong>strong</strong> and I can be <i>italics</i> too. Other than that I'm pretty limited. We have other embeds for something special"
+                },
+
+                {
+                    "name": "Link",
+                    "type": "checkbox"
+                },
+
+                {
+                    "name": "Link Url",
+                    "type": "text",
+                    "default": "https://www.theguardian.com/",
+                    "visibleOn": {
+                        "link": true
+                    }
+                },
+
+                {
+                    "name": "Link Label",
+                    "type": "text",
+                    "default": "Read more",
+                    "visibleOn": {
+                        "link": true
+                    }
+                }
+            ]
+        }
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .wrapper {
+            position: relative;
+            border-top: 1px solid $c-light-grey;
+            border-bottom: 1px solid $c-light-grey;
+        }
+
+        .wrapper--tint {
+            background-color: $c-tint;
+        }
+
+        .header {
+            padding-top: 3px;
+        }
+
+        .title {
+            font-family: 'Guardian Egyptian Web';
+            font-size: 20px;
+            line-height: 1.2;
+            font-weight: bold;
+            margin: 0;
+
+            @include mq(240px) {
+                font-size: 24px;
+            }
+        }
+
+        .content {
+            position: relative;
+            color: $c-black;
+            font-family: 'Guardian Sans Web';
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 1.3;
+            padding: 5px 0;
+
+            @include mq(240px) {
+                font-size: 16px;
+            }
+        }
+
+        a.button {
+            background-color: $c-black;
+            position: relative;
+            display: inline-block;
+            font-family: 'Guardian Sans Web';
+            font-size: 16px;
+            color: #fff;
+            padding: 6px 32px 6px 12px;
+            border-radius: 32px;
+            transition: background 0.4s ease-out;
+            cursor: pointer;
+            margin-bottom: 10px;
+            margin-top: 10px;
+
+            @include mq(240px) {
+                font-size: 16px;
+            }
+
+            &:hover {
+                text-decoration: none;
+                background-position: right center;
+
+                svg {
+                    transform: translateX(2px);
+                }
+            }
+        }
+
+        .button svg {
+            position: absolute;
+            right: 4px;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            fill: $c-white;
+            transition: transform 0.4s ease-out;
+        }
+
+        .button svg path {
+            fill: $c-white;
+        }
+
+        @mixin colouriseEmbed($vertical, $c-color) {
+            .wrapper--#{$vertical} {
+                .title {
+                    color: $c-color;
+                }
+
+                .title:hover {
+                    color: darken($c-color, 5%);
+                }
+
+                .button {
+                    background-color: $c-color;
+
+                    &:hover {
+                        background-color: darken($c-color, 5%);
+                    }
+                }
+            }
+        }
+
+        @include colouriseEmbed('news', $c-red);
+        @include colouriseEmbed('opinion', $c-orange);
+        @include colouriseEmbed('sport', $c-blue);
+        @include colouriseEmbed('arts', $c-brown);
+        @include colouriseEmbed('lifestyle', $c-purple);
+        @include colouriseEmbed('commercial', darken($c-teal, 10%));
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper wrapper--{{ handlise vertical }} {{#if opinion-tint}}wrapper--tint{{/if}}'>
+            <div class='header'>
+                <h2 class='title'>{{ title }}</h2>
+            </div>
+            <div class="content">
+                {{{ description }}}
+            </div>
+
+            {{#if link}}
+                <a class='button' target='_parent' href='{{ validateURL link-url }}'>{{ link-label }} <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></a>
+            {{/if}}
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+            });
+
+            Handlebars.registerHelper('validateURL', function(url) {
+                if (url.startsWith('http')) {
+                    return url;
+                } else {
+                    return 'http://' + url;
+                }
+            });
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+        }
+
+        init();
+    </script>
+</body>

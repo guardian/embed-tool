@@ -340,7 +340,11 @@
     <script class="template" type="text/x-handlebars-template">
         <div class='wrapper wrapper--{{ handlise vertical }} {{#if opinion-tint}}wrapper--tint{{/if}}'>
             <div class='header'>
-                <a class='title' href='{{ validateURL read-more-link }}'>{{ title }}</a>
+                {{#if read-more-link}}
+                    <a class='title' href='{{ validateURL read-more-link }}'>{{ title }}</a>
+                {{ else }}
+                    <h2 class='title'>{{ title }}
+                {{/if}}
             </div>
             <div class="content">
                 {{ description }}
