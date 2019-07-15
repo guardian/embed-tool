@@ -18,6 +18,11 @@
             "tip": "Picture lists should be used for short lists of people, places or things that can be represented visually.",
             "fields": [
                 {
+                    "name": "Opinion Tint",
+                    "type": "checkbox"
+                },
+
+                {
                     "name": "Title",
                     "type": "text",
                     "default": "Something that explains the point of the table",
@@ -151,6 +156,10 @@
             background-color: $c-white;
         }
 
+        .wrapper--tint {
+            background-color: $c-tint;
+        }
+
         .title {
             font-family: 'Guardian Egyptian Web';
             font-weight: bold;
@@ -209,7 +218,7 @@
     </div>
 
     <script class="template" type="text/x-handlebars-template">
-        <div class='wrapper wrapper--{{ handlise vertical }}'>
+        <div class='wrapper wrapper--{{ handlise vertical }} {{#if opinion-tint}}wrapper--tint{{/if}}'>
             <div class='header'>
                 <h1 class='title'>{{ title }}</h1>
                 <p class='standfirst'>{{ standfirst }}<p>

@@ -18,6 +18,11 @@
             "tip": "Tale of the Tapes can be used to represent two people, players or things in a numerical head-to-head",
             "fields": [
                 {
+                    "name": "Opinion Tint",
+                    "type": "checkbox"
+                },
+
+                {
                     "name": "Title A",
                     "type": "text",
                     "default": "Dele Alli"
@@ -172,6 +177,10 @@
             background-color: $c-white;
         }
 
+        .wrapper--tint {
+            background-color: $c-tint;
+        }
+
         .title {
             font-family: 'Guardian Egyptian Web';
             font-weight: bold;
@@ -294,7 +303,7 @@
     </div>
 
     <script class="template" type="text/x-handlebars-template">
-        <div class='wrapper wrapper--{{ handlise vertical }}'>
+        <div class='wrapper wrapper--{{ handlise vertical }} {{#if opinion-tint}}wrapper--tint{{/if}}'>
             <div class='table table--a-{{ colour-a }} table--b-{{ colour-b }}'>
                 <div class='table__row table__row--header'>
                     <div class='table__column table__column--a'>

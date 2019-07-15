@@ -18,6 +18,11 @@
             "tip": "NFL embeds should be used to highlight players mentioned within the piece when they've had a notable game or season",
             "fields": [
                 {
+                    "name": "Opinion Tint",
+                    "type": "checkbox"
+                },
+
+                {
                     "name": "Headline",
                     "type": "text",
                     "default": "vs New York Giants",
@@ -214,6 +219,11 @@
             position: relative;
             border-top: 1px solid $c-light-grey;
             border-bottom: 1px solid $c-light-grey;
+            background-color: $c-white;
+        }
+
+        .wrapper--tint {
+            background-color: $c-tint;
         }
 
         .header {
@@ -382,7 +392,7 @@
     </div>
 
     <script class="template" type="text/x-handlebars-template">
-        <div class='wrapper wrapper--{{ handlise team }}'>
+        <div class='wrapper wrapper--{{ handlise team }} {{#if opinion-tint}}wrapper--tint{{/if}}'>
             <div class='header'>
                 <h1 class='header__name input' data-input='name'>{{ name }}</h1>
                 {{#if headline}}

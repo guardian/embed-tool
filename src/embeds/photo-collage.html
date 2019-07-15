@@ -24,6 +24,11 @@
                 },
 
                 {
+                    "name": "Opinion Tint",
+                    "type": "checkbox"
+                },
+
+                {
                     "name": "Left Image",
                     "type": "text",
                     "default": "https://media.gutools.co.uk/images/a23623d06702d910641d42a8eaecf4dcd1c48fd8?crop=0_76_5760_3456",
@@ -63,6 +68,10 @@
         .wrapper {
             -webkit-font-smoothing: antialiased;
             background-color: $c-white;
+        }
+
+        .wrapper--tint {
+            background-color: $c-tint;
         }
 
         .photos {
@@ -378,7 +387,7 @@
     </div>
 
     <script class="template" type="text/x-handlebars-template">
-        <div class='wrapper wrapper--{{ handlise vertical }}'>
+        <div class='wrapper wrapper--{{ handlise vertical }} {{#if opinion-tint}}wrapper--tint{{/if}}'>
             <div class='photos photos--{{ layout left-image right-image }}'>
                 <div class='photo photo--left'>
                     <img src='{{ gridToLink left-image }}' class='photo__image' />
