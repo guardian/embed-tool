@@ -14,5 +14,3 @@ The `src` folder is where all the magic happens. Inside here you'll find the `em
 
 ## Deploy
 To deploy you can run `npm run deploy` this will deploy both the tool and embeds
-
-<!-- If you have made significant changes you can run `npm run deploy -- true` which will increase the version number and upload a unique version of the embed. This ensures you don't break any existing embeds. Note: You'll need AWS/Janus keys for the S3 Interactive to successfully deploy. -->
