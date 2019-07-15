@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>Cutout Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="../handlebars.min.js"></script>
+
+    <script type='application/json'>
+        {
+            "type": "Photography/Media",
+            "size": "thumbnail",
+            "tip": "Cutout embeds should be used for lighter stories to provide the reader visual emphasis of a person, place or thing. ",
+            "fields": [
+                {
+                    "name": "Vertical",
+                    "type": "select",
+                    "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts", "Commercial"]
+                },
+
+                {
+                    "name": "Image",
+                    "type": "text",
+                    "default": "https://media.gutools.co.uk/images/284f87be45184bdee5c33988846d4d595d0ba55c?crop=430_0_1866_2059",
+                    "tip": "Taller images work better here. Transparent png on S3 or the grid."
+                },
+
+                {
+                    "name": "Title",
+                    "type": "textarea",
+                    "default": "Jeremy Corbyn is very happy with his rosette"
+                }
+            ]
+        }
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .wrapper {
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .image__wrapper {
+            position: relative;
+            border-radius: 0 0 50vw 50vw;
+            overflow: hidden;
+            min-height: 100vw;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .image {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: block;
+        }
+
+        .number {
+            display: block;
+            font-family: 'Guardian Figures';
+            font-size: 48px;
+            line-height: 1;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .number span {
+            font-size: .7em;
+        }
+
+        .title {
+            position: relative;
+            margin: -2.5em 0 0 4px;
+            z-index: 3;
+            font-family: 'Guardian Egyptian Web';
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1.32;
+            color: $c-white;
+
+            @include mq(240px) {
+                font-size: 26px;
+                line-height: 1.35;
+            }
+
+            &__inner {
+                display: inline;
+                padding-bottom: .1em;
+                background: linear-gradient($c-black, $c-black) no-repeat;
+                box-shadow: 4px 0 0 $c-black, -4px 0 0 $c-black;
+            }
+        }
+
+        .circle {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            padding-top: 100%;
+            background-color: $c-black;
+            border-radius: 50%;
+
+            .wrapper--news & {
+                background-color: $c-red;
+            }
+
+            .wrapper--sport & {
+                background-color: $c-blue;
+            }
+
+            .wrapper--opinion & {
+                background-color: $c-orange;
+            }
+
+            .wrapper--lifestyle & {
+                background-color: $c-purple;
+            }
+
+            .wrapper--arts & {
+                background-color: $c-brown;
+            }
+
+            .wrapper--commercial & {
+                background-color: $c-teal;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper wrapper--{{ handlise vertical }}'>
+            <div class='image__wrapper'>
+                <img class='image' src='{{ gridToLink image }}' />
+                <div class='circle'></div>
+            </div>
+            {{#if title}}
+            <p class='title'>
+                <span class='title__inner'>{{ title }}</span>
+            </p>
+            {{/if}}
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                if (string) {
+                    return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                }
+            });
+
+            Handlebars.registerHelper('gridToLink', function(url) {
+                if (url && url.includes('gutools.co.uk')) {
+                    var crop = url.split('?crop=')[1];
+                    var cropDimensions = crop.split('_');
+                    var cropWidth = parseInt(cropDimensions[2]);
+                    var cropHeight = parseInt(cropDimensions[3]);
+
+                    if (cropWidth >= 500) {
+                        if (cropHeight > cropWidth) {
+                            var ratio = 500 / cropHeight;
+                            size = Math.round(cropWidth * ratio);
+                        } else {
+                            size = 500;
+                        }
+                    } else {
+                        size = cropWidth;
+                    }
+
+                    url = url.replace('gutools.co.uk', 'guim.co.uk');
+                    url = url.replace('http://', 'https://');
+                    url = url.replace('images/', '');
+                    url = url.split('?')[0];
+
+                    return url + '/' + crop + '/' + size + '.png';
+                } else if (url) {
+                    return url;
+                }
+            });
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
