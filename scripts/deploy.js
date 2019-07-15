@@ -1,15 +1,16 @@
 module.exports = function deploy() {
     var thingsToUpload = [
         {
-            files: '**/*',
+            files: 'tools/**/*',
             headers: {
                 CacheControl: 'max-age=20'
             }
         },
+
         {
-            files: '*',
+            files: 'embed/**/*',
             headers: {
-                CacheControl: 'max-age=20'
+                CacheControl: 'max-age=86400'
             }
         }
     ];
