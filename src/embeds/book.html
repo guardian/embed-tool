@@ -23,6 +23,12 @@
                 },
 
                 {
+                    "name": "Is Extract",
+                    "type": "checkbox",
+                    "default": true
+                },
+
+                {
                     "name": "Image",
                     "type": "text",
                     "default": "https://media.gutools.co.uk/images/decfbe876e8010ba4ade645370ce6201d43b8b53?crop=0_0_1526_2339",
@@ -199,7 +205,9 @@
 
     <script class="template" type="text/x-handlebars-template">
         <div class='wrapper {{#if opinion-tint}}wrapper--tint{{/if}}'>
-            <h3 class='header'>An extract from&hellip;</h3>
+            {{#if is-extract}}
+                <h3 class='header'>An extract from&hellip;</h3>
+            {{/if}}
             <div class='book'>
                 <img class='book__image' src='{{ gridToLink image }}' />
                 <div class='book__page'></div>

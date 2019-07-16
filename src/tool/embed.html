@@ -432,11 +432,11 @@
                             {{/case}}
 
                             {{#case 'checkbox'}}
-                                <div class='options__checkbox is-off' data-name='{{ handlise name }}'>
+                                <div class='options__checkbox {{#if_eq default true }}is-on{{else}}is-off{{/if_eq}}' data-name='{{ handlise name }}'>
                                     <span class='options__checkbox-switch options__checkbox-switch--off'>Off</span>
                                     <span class='options__checkbox-switch options__checkbox-switch--on'>On</span>
                                 </div>
-                                <input class='options__input options__input--checkbox' type='checkbox' name='{{ handlise name }}'>
+                                <input class='options__input options__input--checkbox' type='checkbox' name='{{ handlise name }}' {{#if_eq default true }}checked{{/if_eq}}>
                             {{/case}}
 
                             {{#case 'textarea'}}

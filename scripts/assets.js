@@ -25,6 +25,13 @@ module.exports = {
             return html;
         });
 
+        handlebars.registerHelper('if_eq', function(a, b, opts) {
+            if(a == b) // Or === depending on your needs
+                return opts.fn(this);
+            else
+                return opts.inverse(this);
+        });
+
         handlebars.registerHelper("case", function(value, options) {
             if (value == this._switch_value_) {
                 return options.fn(this);
