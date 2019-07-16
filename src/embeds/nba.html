@@ -54,25 +54,49 @@
                 },
 
                 {
-                    "name": "Points per game",
+                    "name": "Label 1",
+                    "type": "text",
+                    "default": "Points per game"
+                },
+
+                {
+                    "name": "Number 1",
                     "type": "number",
                     "default": 0
                 },
 
                 {
-                    "name": "Assists per game",
+                    "name": "Label 2",
+                    "type": "text",
+                    "default": "Assists per game"
+                },
+
+                {
+                    "name": "Number 2",
                     "type": "number",
                     "default": 0
                 },
 
                 {
-                    "name": "Rebounds per game",
+                    "name": "Label 3",
+                    "type": "text",
+                    "default": "Rebounds per game"
+                },
+
+                {
+                    "name": "Number 3",
                     "type": "number",
                     "default": 0
                 },
 
                 {
-                    "name": "Field goal percentage",
+                    "name": "Label 4",
+                    "type": "text",
+                    "default": "Field goal percentage"
+                },
+
+                {
+                    "name": "Number 4",
                     "type": "number",
                     "default": 0
                 }
@@ -276,25 +300,33 @@
             </div>
 
             <div class='stats'>
-                <div class='stat'>
-                    <div class='stat__name'>Points per game</div>
-                    <div class='stat__number'>{{ points-per-game }}</div>
-                </div>
+                {{#if label-1 }}
+                    <div class='stat'>
+                        <div class='stat__name'>{{ label-1 }}</div>
+                        <div class='stat__number'>{{ number-1 }}</div>
+                    </div>
+                {{/if}}
 
-                <div class='stat'>
-                    <div class='stat__name'>Assists per game</div>
-                    <div class='stat__number'>{{ assists-per-game }}</div>
-                </div>
+                {{#if label-2 }}
+                    <div class='stat'>
+                        <div class='stat__name'>{{ label-2 }}</div>
+                        <div class='stat__number'>{{ number-2 }}</div>
+                    </div>
+                {{/if}}
 
-                <div class='stat'>
-                    <div class='stat__name'>Rebounds per game</div>
-                    <div class='stat__number'>{{ rebounds-per-game }}</div>
-                </div>
+                {{#if label-3 }}
+                    <div class='stat'>
+                        <div class='stat__name'>{{ label-3 }}</div>
+                        <div class='stat__number'>{{ number-3 }}</div>
+                    </div>
+                {{/if}}
 
-                <div class='stat'>
-                    <div class='stat__name'>Field goal percentage</div>
-                    <div class='stat__number'>{{ field-goal-percentage }}</div>
-                </div>
+                {{#if label-4 }}
+                    <div class='stat'>
+                        <div class='stat__name'>{{ label-4 }}</div>
+                        <div class='stat__number'>{{ number-4 }}</div>
+                    </div>
+                {{/if}}
             </div>
         </div>
     </script>
