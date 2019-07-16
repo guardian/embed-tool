@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." target="_blank">
+    <title>Playlist Embed</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        iframeMessenger.enableAutoResize();
+    </script>
+    <script type='text/javascript' src="../handlebars.min.js"></script>
+
+    <script type='application/json'>
+        {
+            "type": "General",
+            "size": "supporting",
+            "tip": "Co-publishing embeds should be used to signal to a reader that a piece wasn't originally commissioned or written by us",
+            "fields": [
+                {
+                    "name": "Spotify",
+                    "type": "text",
+                    "default": "https://open.spotify.com/playlist/3rfcKVRUykZpc9Pws1E0A6?si=ynNdfWkLRqaNO-X42MQENw",
+                    "tip": "Get from 'copy playlist link' within Spotify"
+                },
+
+                {
+                    "name": "Apple Music",
+                    "type": "text",
+                    "default": "https://music.apple.com/gb/playlist/the-months-best-music-june-2019/pl.u-GgA5eYaTZ1Y9xdW"
+                }
+            ]
+        }
+    </script>
+
+    <script type='application/sass'>
+        @import './node_modules/sass-mq/mq';
+        @import './src/common/style/vars';
+        @import './src/common/style/fonts';
+        @import './src/common/style/base';
+
+        .wrapper {
+            -webkit-font-smoothing: antialiased;
+            border-top: 1px solid $c-light-grey;
+            border-bottom: 1px solid $c-light-grey;
+            padding: 3px 0;
+        }
+
+        .title,
+        .option__title {
+            font-family: 'Guardian Egyptian Web';
+            font-size: 20px;
+            line-height: 1.2;
+            font-weight: bold;
+            margin: 0;
+
+            @include mq(240px) {
+                font-size: 24px;
+            }
+        }
+
+        .title {
+            margin-bottom: 12px;
+        }
+
+        .option {
+            position: relative;
+            border-top: 1px solid $c-light-grey;
+            padding: 3px;
+            min-height: 60px;
+        }
+
+        .option__button {
+            position: absolute;
+            right: 0;
+            top: 3px;
+            transition: transform 0.3s linear;
+
+            &:hover {
+                transform: rotate(15deg);
+
+                circle {
+                    fill: $c-off-yellow;
+                }
+            }
+
+            .is-open & {
+                transform: rotate(45deg);
+
+                &:hover {
+                    transform: rotate(30deg);
+                }
+            }
+
+            circle {
+                fill: $c-yellow;
+            }
+
+            path {
+                fill: $c-black;
+            }
+        }
+
+        .option__content {
+            transition: max-height 0.3s linear;
+            max-height: 0;
+            overflow: hidden;
+            margin-top: 34px;
+
+            .is-open & {
+                max-height: 500px;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class='target'>
+        <!-- this is where the template will be injected -->
+    </div>
+
+    <script class="template" type="text/x-handlebars-template">
+        <div class='wrapper wrapper--{{ handlise vertical }}'>
+            <h2 class='title'>Where would you like to listen?</h2>
+            <div class='options'>
+                {{#if spotify}}
+                    <div class='option option--spotify'>
+                        <h2 class='option__title'>Listen on Spotify</h2>
+                        <svg class='option__button' width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <circle cx="26" cy="26" r="26"/>
+                                <path d="M24.73 27.27l.45 10.378h1.614l.477-10.377 10.378-.476V25.18l-10.377-.45-.476-10.378H25.18l-.45 10.377-10.378.45v1.614"/>
+                            </g>
+                        </svg>
+                        <div class='option__content'>
+                            <iframe src="{{ convertUrlToEmbedSrc spotify }}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>
+                        </div>
+                    </div>
+                {{/if}}
+
+                {{#if apple-music}}
+                    <div class='option option--apple-music'>
+                        <h2 class='option__title'>Listen on Apple Music</h2>
+                        <svg class='option__button' width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <circle cx="26" cy="26" r="26"/>
+                                <path d="M24.73 27.27l.45 10.378h1.614l.477-10.377 10.378-.476V25.18l-10.377-.45-.476-10.378H25.18l-.45 10.377-10.378.45v1.614"/>
+                            </g>
+                        </svg>
+                        <div class='option__content'>
+                            <iframe src="{{ convertUrlToEmbedSrc apple-music }}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </script>
+
+    <script type='text/javascript'>
+        var params;
+
+        function getPageParameters(query) {
+            query = query.split('?')[1];
+
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                    pair[1] = decodeURIComponent(pair[1]);
+
+                if (pair[1] === 'true' || pair[1] === 'false') {
+                    pair[1] = JSON.parse(pair[1]);
+                }
+
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [query_string[pair[0]], pair[1]];
+                    query_string[pair[0]] = arr;
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            }
+
+            return query_string;
+        }
+
+        function init() {
+            Handlebars.registerHelper('handlise', function(string) {
+                if (string) {
+                    return string.toLowerCase().replace(/ /g, '-').replace(/\//g, '');
+                }
+            });
+
+            Handlebars.registerHelper('convertUrlToEmbedSrc', function(url) {
+                if (url.includes('spotify.com')) {
+                    return url.replace('.com/playlist', '.com/embed/playlist');
+                } else if (url.includes('music.apple.com')){
+                    return url.replace('music.apple.com', 'tools.applemusic.com').replace('/gb/', '/embed/v1').replace(/playlist\/[a-z0-9-]*\//, '/playlist/');
+                }
+            });
+
+            var source = document.getElementsByClassName('template')[0].innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(getPageParameters(document.location.href));
+
+            document.getElementsByClassName('target')[0].outerHTML = html;
+
+            var buttons = document.querySelectorAll('.option__button');
+
+            for (var button of buttons) {
+                button.addEventListener('click', function(event) {
+                    for (var path of event.path) {
+                        if (path.classList.contains('option')) {
+                            path.classList.toggle('is-open');
+                            setTimeout(function() {
+                                iframeMessenger.resize();
+                            }, 300);
+                            return false;
+                        }
+                    }
+                })
+            }
+        }
+
+        init();
+    </script>
+</body>
