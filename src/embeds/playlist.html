@@ -107,7 +107,6 @@
         }
 
         .option__content {
-            transition: max-height 0.3s linear;
             max-height: 0;
             overflow: hidden;
 
@@ -221,9 +220,7 @@
                     for (var path of event.path) {
                         if (path.classList.contains('option')) {
                             path.classList.toggle('is-open');
-                            setTimeout(function() {
-                                iframeMessenger.resize();
-                            }, 300);
+                            iframeMessenger.resize();
                             return false;
                         }
                     }
