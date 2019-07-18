@@ -67,7 +67,10 @@ Loosely it looks like this...
 Every section of the above template is pretty generic and self-explanatory. However, the data structure, represented by json, is pretty specific. There are a bunch of examples within the existing set of embeds but here's what each option can be.
 
 ### Options
-**`type`** `string`
+
+#### type
+#### `type`
+`string`
 
 This represents the type of embed. Used to group the embeds on the home page of the tools
 
@@ -85,7 +88,7 @@ Used to describe what the embed should be used for. Should be a sentence or two.
 
 This is an array of different `field` objects with each object representing an editable field for the embeds
 
-#### Field options
+### Field options
 Each `field` object in the `fields` array can/should include these properties
 
 **`name`** `string`
