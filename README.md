@@ -67,7 +67,8 @@ Loosely it looks like this...
 Every section of the above template is pretty generic and self-explanatory. However, the data structure, represented by json, is pretty specific. There are a bunch of examples within the existing set of embeds but here's what each option can be.
 
 #### Options
-`type` `string`
+`*type*` `string`
+
 This represents the type of embed. Used to group the embeds on the home page of the tools
 
 `size` `string`
