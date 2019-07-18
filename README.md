@@ -69,7 +69,7 @@ Every section of the above template is pretty generic and self-explanatory. Howe
 ### Options
 
 #### type
-#### `type`
+### `type`
 `string`
 
 This represents the type of embed. Used to group the embeds on the home page of the tools
