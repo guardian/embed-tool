@@ -66,8 +66,6 @@ Loosely it looks like this...
 ## Data structure
 Every section of the above template is pretty generic and self-explanatory. However, the data structure, represented by json, is pretty specific. There are a bunch of examples within the existing set of embeds but here's what each option can be.
 
-### Options
-
 ### `type`
 `string`
 
@@ -88,10 +86,7 @@ Used to describe what the embed should be used for. Should be a sentence or two.
 ### `fields`
 `array`
 
-This is an array of different `field` objects with each object representing an editable field for the embeds
-
-### Field options
-Each `field` object in the `fields` array can/should include these properties
+This is an array of different `field` objects with each object representing an editable field for the embeds. Each `field` object in the `fields` array can/should include the below properties
 
 ### `name`
 `string`
@@ -115,7 +110,7 @@ An array of strings or numbers that represent the dropdown options for this sele
 
 Sets the default value for the field. Should be representative of what the actual content should be. Should be a `string` unless the `type` is `checkbox`
 
-###`tip`
+### `tip`
 `string` *optional*
 
 Will add a note next to the field in the tool. Should be used to give direction
