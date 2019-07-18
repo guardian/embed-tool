@@ -68,48 +68,55 @@ Every section of the above template is pretty generic and self-explanatory. Howe
 
 ### Options
 
-#### type
 ### `type`
 `string`
 
 This represents the type of embed. Used to group the embeds on the home page of the tools
 
-**`size`** `string`
+### `size`
+`string`
 
 Sets the suggest weighting for the embed (set in Composer), this is visible in the tool. It also controls preview width in the tool.
 
 Valid options: `thumbnail`, `supporting`, `inline`, `showcase` and `immersive`
 
-**`tip`** `string` *optional*
+### `tip`
+`string` *optional*
 
 Used to describe what the embed should be used for. Should be a sentence or two.
 
-**`fields`** `array`
+### `fields`
+`array`
 
 This is an array of different `field` objects with each object representing an editable field for the embeds
 
 ### Field options
 Each `field` object in the `fields` array can/should include these properties
 
-**`name`** `string`
+### `name`
+`string`
 
 The name of the field. This can be anything but must be unique inside the individual embed
 
-**`type`** `string`
+### `type`
+`string`
 
 The type of field. A few of these come with extra options that must be provided.
 
 Valid options: `text`, `number`, `textarea`, `checkbox` and `select`
 
-**`options`** `array` *only required when `type` is `select`*
+### `options`
+`array` *only required when `type` is `select`*
 
 An array of strings or numbers that represent the dropdown options for this select
 
-**`default`** `string` or `boolean` *optional*
+### `default`
+`string` or `boolean` *optional*
 
 Sets the default value for the field. Should be representative of what the actual content should be. Should be a `string` unless the `type` is `checkbox`
 
-**`tip`** `string` *optional*
+###`tip`
+`string` *optional*
 
 Will add a note next to the field in the tool. Should be used to give direction
 
