@@ -17,7 +17,7 @@ Clone this repo locally and run `npm i` to install dependancies.
 
 Once that's done you can run `npm run local` to run the project locally. The tool will be previewable on [localhost url](http://localhost:8080/tools/embed-tool/).
 
-### Creating a embed
+## Creating a embed
 If you would like to add a new embed to the tool, you should create or duplicate an existing embed within `src/embeds`. From this file, a page that allows people to generate the embed will be added to the tool and the embed that will be served will be compiled. Each file in here contains the data structure, the html, the css (in scss format here) and javascript that will make up the embed.
 
 Loosely it looks like this...
@@ -63,10 +63,10 @@ Loosely it looks like this...
 </html>
 ```
 
-### Data structure
+## Data structure
 Every section of the above template is pretty generic and self-explanatory. However, the data structure, represented by json, is pretty specific. There are a bunch of examples within the existing set of embeds but here's what each option can be.
 
-#### Options
+### Options
 **`type`** `string`
 
 This represents the type of embed. Used to group the embeds on the home page of the tools
