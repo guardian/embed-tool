@@ -375,22 +375,28 @@
             }
         }
 
-        .photos--equal,
-        .photos--captions-below {
+        .photos--equal {
             @include mq(620px) {
                 display: flex;
 
                 .photo {
                     width: calc(50% - 10px);
                 }
+            }
+        }
 
-                .photo__caption {
-                    position: relative !important;
+        .photos--captions-below {
+            .photo__caption {
+                position: relative !important;
 
-                    &:before {
-                        transform: rotate(0deg) !important;
-                    }
+                &:before {
+                    transform: rotate(0deg) !important;
                 }
+            }
+
+            &.photos--left-wide .photo--left .photo__caption,
+            &.photos--right-wide .photo--right .photo__caption {
+                width: auto !important;
             }
         }
     </script>
