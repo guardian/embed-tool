@@ -39,7 +39,7 @@
                     "name": "Left Caption",
                     "type": "text",
                     "default": "A short little caption. Source: Some Photographer for The Guardian",
-                    "tip": "Keep short so it works across all breakpoints"
+                    "tip": "Keep short so it works across all breakpoints. Optional"
                 },
 
                 {
@@ -53,7 +53,7 @@
                     "name": "Right Caption",
                     "type": "text",
                     "default": "A short little caption. Source: Some Photographer for The Guardian",
-                    "tip": "Keep short so it works across all breakpoints"
+                    "tip": "Keep short so it works across all breakpoints. Optional"
                 }
             ]
         }
@@ -391,11 +391,15 @@
             <div class='photos photos--{{ layout left-image right-image }}'>
                 <div class='photo photo--left'>
                     <img src='{{ gridToLink left-image }}' class='photo__image' />
-                    <p class='photo__caption'>{{ left-caption }}</p>
+                    {{#if left-caption }}
+                        <p class='photo__caption'>{{ left-caption }}</p>
+                    {{/if}}
                 </div>
                 <div class='photo photo--right'>
                     <img src='{{ gridToLink right-image }}' class='photo__image' />
-                    <p class='photo__caption'>{{ right-caption }}</p>
+                    {{#if right-caption }}
+                        <p class='photo__caption'>{{ right-caption }}</p>
+                    {{/if}}
                 </div>
             </div>
         </div>
