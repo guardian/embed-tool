@@ -54,6 +54,12 @@
                     "type": "text",
                     "default": "A short little caption. Source: Some Photographer for The Guardian",
                     "tip": "Keep short so it works across all breakpoints. Optional"
+                },
+
+                {
+                    "name": "Always Place Captions Below",
+                    "type": "checkbox",
+                    "default": false
                 }
             ]
         }
@@ -163,16 +169,6 @@
 
                 .wrapper--commercial & {
                     border-bottom-color: $c-teal;
-                }
-            }
-        }
-
-        .photos--equal {
-            @include mq(620px) {
-                display: flex;
-
-                .photo {
-                    width: calc(50% - 10px);
                 }
             }
         }
@@ -378,6 +374,25 @@
                 }
             }
         }
+
+        .photos--equal,
+        .photos--captions-below {
+            @include mq(620px) {
+                display: flex;
+
+                .photo {
+                    width: calc(50% - 10px);
+                }
+
+                .photo__caption {
+                    position: relative !important;
+
+                    &:before {
+                        transform: rotate(0deg) !important;
+                    }
+                }
+            }
+        }
     </script>
 </head>
 
@@ -388,7 +403,7 @@
 
     <script class="template" type="text/x-handlebars-template">
         <div class='wrapper wrapper--{{ handlise vertical }} {{#if opinion-tint}}wrapper--tint{{/if}}'>
-            <div class='photos photos--{{ layout left-image right-image }}'>
+            <div class='photos photos--{{ layout left-image right-image }} {{#if always-place-captions-below}}photos--captions-below{{/if}}'>
                 <div class='photo photo--left'>
                     <img src='{{ gridToLink left-image }}' class='photo__image' />
                     {{#if left-caption }}
