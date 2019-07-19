@@ -462,12 +462,12 @@
                     var cropWidth = cropDimensions[2];
                     var cropHeight = cropDimensions[3];
 
-                    if (cropWidth >= 500) {
+                    if (cropWidth >= 1000) {
                         if (cropHeight > cropWidth) {
-                            var ratio = 500 / cropHeight;
+                            var ratio = 1000 / cropHeight;
                             size = Math.round(cropWidth * ratio);
                         } else {
-                            size = 500;
+                            size = 1000;
                         }
                     } else {
                         size = cropWidth;
