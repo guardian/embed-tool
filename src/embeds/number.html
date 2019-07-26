@@ -52,11 +52,19 @@
         .number {
             display: block;
             font-family: 'Guardian Figures';
-            font-size: 48px;
+            font-size: 56px;
             line-height: 1;
             margin: 0;
             font-weight: normal;
             max-width: 400px;
+
+            &--small {
+                font-size: 38px;
+            }
+
+            &--super-small {
+                font-size: 28px;
+            }
 
             .wrapper--news & {
                 color: $c-red;
@@ -105,7 +113,7 @@
 
     <script class="template" type="text/x-handlebars-template">
         <div class='wrapper wrapper--{{ handlise vertical }}'>
-            <h2 class='number'>{{{ formatNumber number }}}</h2>
+            <h2 class='number number--{{ numberSize number }}'>{{{ formatNumber number }}}</h2>
             <p class='title'>{{ title }}</p>
         </div>
     </script>
@@ -159,6 +167,16 @@
                     return string;
                 }
             });
+
+            Handlebars.registerHelper('numberSize', function(string) {
+                string.toString();
+
+                if (string.length > 6) {
+                    return 'super-small'
+                } else if (string.length > 4) {
+                    return 'small'
+                }
+            })
 
             var source = document.getElementsByClassName('template')[0].innerHTML;
             var template = Handlebars.compile(source);
