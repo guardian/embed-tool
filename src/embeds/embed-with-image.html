@@ -20,7 +20,12 @@
             {
                 "name": "Vertical",
                 "type": "select",
-                "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts", "Commercial"]
+                "options": ["News", "Opinion", "Sport", "Lifestyle", "Arts", "Commercial", "Fundraising"]
+            },
+
+            {
+                "name": "Gray Tint",
+                "type": "checkbox"
             },
 
             {
@@ -106,7 +111,6 @@
                     "links": true
                 }
             },
-
             {
                 "name": "Link 2 Headline",
                 "type": "text",
@@ -124,7 +128,6 @@
                     "links": true
                 }
             },
-
             {
                 "name": "Link 3 Headline",
                 "type": "text",
@@ -163,9 +166,14 @@
         background-color: $c-tint;
     }
 
+    .gray--tint {
+        background-color: #EDEDED;
+    }
+
     .header {
         padding-top: 3px;
         overflow: hidden;
+        padding: 5px;
     }
 
     .title {
@@ -187,7 +195,8 @@
         font-weight: 400;
         font-size: 14px;
         line-height: 1.3;
-        padding: 5px 0;
+        //padding: 5px 0;
+        padding: 5px;
 
         @include mq(240px) {
             font-size: 16px;
@@ -205,8 +214,7 @@
         border-radius: 32px;
         transition: background 0.4s ease-out;
         cursor: pointer;
-        margin-bottom: 10px;
-        margin-top: 10px;
+        margin: 10px 5px;
 
         @include mq(240px) {
             font-size: 16px;
@@ -239,7 +247,7 @@
 
     .links {
         margin: 12px 0 0;
-        padding: 0;
+        padding: 5px;
         list-style: none;
     }
 
@@ -310,6 +318,21 @@
         position: relative;
     }
 
+    .wrapper--fundraising {
+        .button {
+            color: #333;
+            background-color: #ffbb50 !important;
+
+            svg path {
+                fill: #333;
+            }
+        }
+
+        .title {
+            font-weight: 200;
+        }
+    }
+
     .logo {
         max-height: 100px;
         display: block;
@@ -367,6 +390,7 @@
     @include colouriseEmbed('arts', $c-brown);
     @include colouriseEmbed('lifestyle', $c-purple);
     @include colouriseEmbed('commercial', darken($c-teal, 10%));
+    @include colouriseEmbed('fundraising', #333);
     </script>
 </head>
 
@@ -376,7 +400,7 @@
     </div>
 
     <script class="template" type="text/x-handlebars-template">
-        <div class='wrapper wrapper--{{ handlise vertical }} {{#if opinion-tint}}wrapper--tint{{/if}}'>
+        <div class='wrapper wrapper--{{ handlise vertical }} {{#if gray-tint}}gray--tint{{/if}} {{#if opinion-tint}}wrapper--tint{{/if}}'>
             <div class='image'>
                 <img src='{{ gridToLink image }}' class='image__image' />
             </div>
@@ -409,7 +433,7 @@
                 {{/if}}
 
                 {{#if read-more-link}}
-                <a class='button' target='_parent' href='{{ validateURL read-more-link }}'>More from this series <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></a>
+                <a class='button' target='_parent' href='{{ validateURL read-more-link }}'>Contribute <svg class='uit-icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path d='M38.65 25.58L37 27.21 26.79 37.44l-1.1-1.11 8.53-10.19H12.5v-2.28h21.72l-8.53-10.19 1.1-1.1L37 22.79l1.63 1.63v1.16z'/></svg></a>
                 {{/if}}
 
                 {{#if paid-for-by}}
