@@ -423,6 +423,10 @@
                         {{/if}}
 
                         {{#switch type}}
+                            {{# case 'howto'}}
+                                <a href='{{ default }}' target="_blank" rel="noopener noreferrer">{{ text }}</a>
+                            {{/case}}
+
                             {{#case 'text'}}
                                 <input class='options__input' type='text' value='{{ default }}' name='{{ handlise name }}'>
                             {{/case}}
