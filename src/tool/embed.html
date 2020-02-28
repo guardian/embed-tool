@@ -195,6 +195,11 @@
             color: #676767;
         }
 
+        .options__howto {
+            font-family: 'Guardian Agate Sans';
+            font-weight: normal;
+        }
+
         .options__input {
             box-sizing: border-box;
             width: 100%;
@@ -424,7 +429,7 @@
 
                         {{#switch type}}
                             {{# case 'howto'}}
-                                <a href='{{ default }}' target="_blank" rel="noopener noreferrer">{{ text }}</a>
+                                <a href='{{ default }}' class="options__howto" target="_blank" rel="noopener noreferrer">{{ text }}</a>
                             {{/case}}
 
                             {{#case 'text'}}
