@@ -5,6 +5,7 @@ bower_components/
 .local/
 yarn.lock
 .DS_Store
+.idea/
 .sass-cache/
 keys.json
 npm-debug.log

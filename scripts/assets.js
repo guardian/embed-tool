@@ -1,12 +1,12 @@
 var fs = require('fs-extra');
-var sass = require('node-sass');
+var sass = require('sass');
 var handlebars = require('handlebars');
 
 module.exports = {
     css: function(importedSass) {
-        var css = sass.renderSync({
-            data: importedSass
-        }).css.toString('utf8');
+        var css = sass.compileString(importedSass, {
+            loadPaths: ['.', './node_modules', './src']
+        }).css;
 
         return css;
     },
