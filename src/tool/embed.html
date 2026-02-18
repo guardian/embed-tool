@@ -6,7 +6,12 @@
     <title>{{ displayName }} Embed Tool</title>
 </head>
 
-<body data-displayName='{{ displayName }}'>
+<body data-displayName='{{ displayName }}'{{#if_eq name 'looping-video'}} class="has-deprecation-banner"{{/if_eq}}>
+    {{#if_eq name 'looping-video'}}
+    <div class="deprecation-banner">
+        ⚠️ <strong>This tool is being deprecated.</strong> Please refer to the <a href="https://docs.google.com/document/d/1j8bYissxODxR-vDuRgMoLfEoMMVs3nkwHyYd42mJSQ0/edit?usp=sharing" target="_blank" rel="noopener noreferrer">updated instructions</a> for the recommended approach.
+    </div>
+    {{/if_eq}}
     <style>
         @font-face {
             font-family: 'Guardian Egyptian Web';
@@ -403,6 +408,38 @@
             font-size: 13px;
             line-height: 1.1;
             font-family: 'Guardian Agate Sans';
+        }
+
+        .deprecation-banner {
+            background-color: #c70000;
+            color: #fff;
+            padding: 16px 20px;
+            font-family: 'Guardian Agate Sans';
+            font-size: 15px;
+            line-height: 1.4;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .deprecation-banner a {
+            color: #ffe500;
+            font-weight: bold;
+        }
+
+        .deprecation-banner a:hover {
+            color: #ffbb50;
+        }
+
+        .has-deprecation-banner header {
+            top: 52px;
+        }
+
+        .has-deprecation-banner .options {
+            padding-top: 112px;
         }
 
     </style>
