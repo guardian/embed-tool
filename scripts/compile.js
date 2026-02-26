@@ -1,5 +1,4 @@
 var fs = require('fs-extra');
-var deasync = require('deasync');
 var JSDom = require('jsdom').JSDOM;
 
 var deploy = require('./deploy.js');
